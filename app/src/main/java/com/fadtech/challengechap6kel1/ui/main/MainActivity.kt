@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.core.view.isInvisible
 import com.fadtech.challengechap6kel1.R
@@ -127,18 +126,18 @@ class MainActivity : AppCompatActivity() {
         if ((playerOne.plus(1)).rem(3) == playerTwo) {
             Log.d(TAG, "setClickEvent Computer won")
             //belum ada image dan dialog ke mas ridwan
-            //binding.ivImageVs.setImageResource(R.drawable.computerwin)
+            binding.ivImageVs.setImageResource(R.drawable.icon_com_win)
             //DialogFragment(1, flag).show(supportFragmentManager, null)
 
         } else if (playerOne == playerTwo) {
             Log.d(TAG, "setClickEvent draw")
             //belum ada image dan dialog ke mas ridwan
-            //binding.ivImageVs.setImageResource(R.drawable.draw)
+            binding.ivImageVs.setImageResource(R.drawable.icon_draw)
             //DialogFragment(3, flag).show(supportFragmentManager, null)
         } else {
             Log.d(TAG, "setClickEvent User won")
             //belum ada image dan dialog ke mas ridwan
-            //binding.ivImageVs.setImageResource(R.drawable.playerwin)
+            binding.ivImageVs.setImageResource(R.drawable.icon_winner)
             //DialogFragment(0, flag).show(supportFragmentManager, null)
 
         }
