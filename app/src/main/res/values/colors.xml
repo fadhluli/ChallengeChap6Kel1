@@ -7,4 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="primary_color">#FCD6A4</color>
+    <color name="primary_color_variant1">#EFC797</color>
+    <color name="primary_color_variant2">#FAF2B2</color>
+    <color name="secondary_color">#AC203E</color>
+    <color name="secondary_color_variant">#8E1A38</color>
+
+    <color name="font_electro">#4A4A4A </color>
+    <color name="font_roboto">#8E8E8E </color>
 </resources>
