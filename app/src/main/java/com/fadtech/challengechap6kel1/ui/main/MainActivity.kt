@@ -19,9 +19,10 @@ class MainActivity : AppCompatActivity() {
     private var playMode: Int? = null
     private var player2: Int? = null
     private var player1: Int? = null
+    private var totalWinplayer1: Int = 0
+    private var totalWinplayer2: Int = 0
     private var flag: Int = -1
     private val TAG = MainActivity::class.java.simpleName
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,16 +69,16 @@ class MainActivity : AppCompatActivity() {
     private fun onPlayerOneClick() {
         var random: Int
         binding.flActionPlayerRock.setOnClickListener {
-           if ( !isGameFinished) {
-               player1 = 0
-               setSelectPlayer(0)
-               showToastFromPlayer1Choice(player1!!)
-               if (playMode != 0) {
-                   random = Random.nextInt(0, 3)
-                   gamePlay(player1!!, random)
-               }
-           }
-           }
+            if (!isGameFinished) {
+                player1 = 0
+                setSelectPlayer(0)
+                showToastFromPlayer1Choice(player1!!)
+                if (playMode != 0) {
+                    random = Random.nextInt(0, 3)
+                    gamePlay(player1!!, random)
+                }
+            }
+        }
         binding.flActionPlayerPapper.setOnClickListener {
             if (!isGameFinished) {
                 player1 = 1
@@ -101,6 +102,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun onPlayerTwoClick() {
         binding.flActionCpuRock.setOnClickListener {
             if (!isGameFinished) {
@@ -115,10 +117,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.flActionCpuScissor.setOnClickListener {
-            if (!isGameFinished){
+            if (!isGameFinished) {
                 player2 = 2
-            gamePlay(player1!!, player2!!)
-        }
+                gamePlay(player1!!, player2!!)
+            }
         }
     }
 
@@ -126,17 +128,22 @@ class MainActivity : AppCompatActivity() {
         if ((playerOne.plus(1)).rem(3) == playerTwo) {
             Log.d(TAG, "setClickEvent Computer won")
             //belum ada image dan dialog ke mas ridwan
+            totalWinplayer2 += 1
+            binding.tvScorePlayerCpu.setText(totalWinplayer2.toString())
             binding.ivImageVs.setImageResource(R.drawable.icon_com_win)
             //DialogFragment(1, flag).show(supportFragmentManager, null)
 
         } else if (playerOne == playerTwo) {
             Log.d(TAG, "setClickEvent draw")
             //belum ada image dan dialog ke mas ridwan
+
             binding.ivImageVs.setImageResource(R.drawable.icon_draw)
             //DialogFragment(3, flag).show(supportFragmentManager, null)
         } else {
             Log.d(TAG, "setClickEvent User won")
             //belum ada image dan dialog ke mas ridwan
+            totalWinplayer1 += 1
+            binding.tvScorePlayerOne.setText(totalWinplayer1.toString())
             binding.ivImageVs.setImageResource(R.drawable.icon_winner)
             //DialogFragment(0, flag).show(supportFragmentManager, null)
 
@@ -229,12 +236,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setControl(){
-        if(onPlayerOneClick() == onPlayerOneClick()){
+    private fun setControl() {
+        if (onPlayerOneClick() == onPlayerOneClick()) {
             binding.flActionPlayerRock.isInvisible = true
             binding.flActionPlayerPapper.isInvisible = true
             binding.flActionPlayerScissor.isInvisible = true
-        }else {
+        } else {
             binding.flActionPlayerRock.isInvisible = false
             binding.flActionPlayerPapper.isInvisible = false
             binding.flActionPlayerScissor.isInvisible = false
