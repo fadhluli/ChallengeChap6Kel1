@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">ChallengeChap6Kel1</string>
+    <string name="text_player_cpu">Computer</string>
+    <string name="text_player_player2">Player 2</string>
+    <string name="text_toast_choice">%s memilih %s</string>
+    <string name="text_shape_rock">Rock</string>
+    <string name="text_shape_paper">Papper</string>
+    <string name="text_shape_scissor">Scissor</string>
+    <string name="text_name_enemy_player">Player 2</string>
+    <string name="text_name_enemy_comp">Computer</string>
+
 </resources>
