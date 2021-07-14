@@ -1,6 +1,6 @@
 package com.fadtech.challengechap6kel1.ui.main
 
-import android.content.Intent
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +11,8 @@ import com.fadtech.challengechap6kel1.data.constant.Constant
 import com.fadtech.challengechap6kel1.databinding.ActivityMainBinding
 import com.fadtech.challengechap6kel1.enum.GameMechanic
 import com.fadtech.challengechap6kel1.preference.UserPreference
+import com.fadtech.challengechap6kel1.ui.dialog.DialogResultFragment
+import com.fadtech.challengechap6kel1.ui.dialog.DialogSettingFragment
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -37,7 +39,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun start() {
         playMode = intent.getIntExtra(Constant.PLAY_MODE, 0)
-        binding.tvNamePlayerOne.text = UserPreference(this).userName
+        binding.tvNamePlayerOne.text = UserPreference(this).userNamePlayerOne
+        binding.tvNameCpu.text = UserPreference(this).userNamePlayerTwo
 
         if (playMode == 0) {
             flag = 0
@@ -60,9 +63,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun onSettingClick() {
         binding.ivSetting.setOnClickListener {
-            val intent = Intent(this@MainActivity, this::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
+
+            //Dialog Setting Dialog Click Listener
+            DialogSettingFragment().show(supportFragmentManager, null)
+
         }
     }
 
@@ -127,25 +131,24 @@ class MainActivity : AppCompatActivity() {
     private fun gamePlay(playerOne: Int, playerTwo: Int) {
         if ((playerOne.plus(1)).rem(3) == playerTwo) {
             Log.d(TAG, "setClickEvent Computer won")
-            //belum ada image dan dialog ke mas ridwan
             totalWinplayer2 += 1
             binding.tvScorePlayerCpu.setText(totalWinplayer2.toString())
             binding.ivImageVs.setImageResource(R.drawable.icon_com_win)
-            //DialogFragment(1, flag).show(supportFragmentManager, null)
+            //Dialog Result for player 2 and Computer win
+            DialogResultFragment(UserPreference(this).userNamePlayerTwo + " WINNER" + "COMPUTER WINNER").show(supportFragmentManager, null)
 
         } else if (playerOne == playerTwo) {
             Log.d(TAG, "setClickEvent draw")
-            //belum ada image dan dialog ke mas ridwan
-
             binding.ivImageVs.setImageResource(R.drawable.icon_draw)
-            //DialogFragment(3, flag).show(supportFragmentManager, null)
+            //Dialog Result for Draw
+            DialogResultFragment("Draw").show(supportFragmentManager, null)
         } else {
             Log.d(TAG, "setClickEvent User won")
-            //belum ada image dan dialog ke mas ridwan
             totalWinplayer1 += 1
             binding.tvScorePlayerOne.setText(totalWinplayer1.toString())
             binding.ivImageVs.setImageResource(R.drawable.icon_winner)
-            //DialogFragment(0, flag).show(supportFragmentManager, null)
+            //Dialog Result for Player One
+            DialogResultFragment(UserPreference(this).userNamePlayerOne + "WINNER").show(supportFragmentManager, null)
 
         }
         isGameFinished = true
@@ -162,7 +165,7 @@ class MainActivity : AppCompatActivity() {
         setControl()
     }
 
-    fun resetGame() {
+    internal fun resetGame() {
         setSelectPlayer(-1)
         setSelectComputer(-1)
         player1 = null
@@ -179,7 +182,7 @@ class MainActivity : AppCompatActivity() {
                 this,
                 String.format(
                     getString(R.string.text_toast_choice),
-                    UserPreference(this).userName,
+                    UserPreference(this).userNamePlayerOne,
                     getString(R.string.text_shape_rock)
 
                 ), Toast.LENGTH_SHORT
@@ -189,7 +192,7 @@ class MainActivity : AppCompatActivity() {
                 this,
                 String.format(
                     getString(R.string.text_toast_choice),
-                    UserPreference(this).userName,
+                    UserPreference(this).userNamePlayerOne,
                     getString(R.string.text_shape_paper)
                 ), Toast.LENGTH_SHORT
             ).show()
@@ -198,20 +201,20 @@ class MainActivity : AppCompatActivity() {
                 this,
                 String.format(
                     getString(R.string.text_toast_choice),
-                    UserPreference(this).userName,
+                    UserPreference(this).userNamePlayerOne,
                     getString(R.string.text_shape_scissor)
                 ), Toast.LENGTH_SHORT
             ).show()
         }
     }
 
-    private fun showToastFromPlayer2Choice(player: String, choice: Int) {
+    private fun showToastFromPlayer2Choice(player:String,choice: Int) {
         if (choice == 0) {
             Toast.makeText(
                 this,
                 String.format(
                     getString(R.string.text_toast_choice),
-                    player,
+                    UserPreference(this).userNamePlayerTwo,
                     getString(R.string.text_shape_rock)
                 ), Toast.LENGTH_SHORT
             ).show()
@@ -220,7 +223,7 @@ class MainActivity : AppCompatActivity() {
                 this,
                 String.format(
                     getString(R.string.text_toast_choice),
-                    player,
+                    UserPreference(this).userNamePlayerTwo,
                     getString(R.string.text_shape_paper)
                 ), Toast.LENGTH_SHORT
             ).show()
@@ -229,7 +232,7 @@ class MainActivity : AppCompatActivity() {
                 this,
                 String.format(
                     getString(R.string.text_toast_choice),
-                    player,
+                    UserPreference(this).userNamePlayerTwo,
                     getString(R.string.text_shape_scissor)
                 ), Toast.LENGTH_SHORT
             ).show()
