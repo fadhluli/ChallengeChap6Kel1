@@ -64,8 +64,8 @@
             android:fontFamily="@font/roboto_font"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:textSize="@dimen/_14ssp"
-            android:textAlignment="center"
+            android:textSize="@dimen/_8ssp"
+            android:gravity="center"
             android:text="Play Again" />
 
 
@@ -78,11 +78,9 @@
             android:fontFamily="@font/roboto_font"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:textSize="@dimen/_14ssp"
-            android:textAlignment="center"
-            android:text="Return to Menu"
-
-        />
+            android:textSize="@dimen/_8ssp"
+            android:gravity="center"
+            android:text="Return to Menu" />
 
 
 

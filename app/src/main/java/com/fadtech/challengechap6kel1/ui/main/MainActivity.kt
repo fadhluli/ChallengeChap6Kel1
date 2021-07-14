@@ -11,11 +11,12 @@ import com.fadtech.challengechap6kel1.data.constant.Constant
 import com.fadtech.challengechap6kel1.databinding.ActivityMainBinding
 import com.fadtech.challengechap6kel1.enum.GameMechanic
 import com.fadtech.challengechap6kel1.preference.UserPreference
+import com.fadtech.challengechap6kel1.ui.dialog.DialogFragmentListener
 import com.fadtech.challengechap6kel1.ui.dialog.DialogResultFragment
 import com.fadtech.challengechap6kel1.ui.dialog.DialogSettingFragment
 import kotlin.random.Random
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),DialogFragmentListener {
     private lateinit var binding: ActivityMainBinding
     private var isGameFinished: Boolean = false
     private var playMode: Int? = null
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun start() {
-        playMode = intent.getIntExtra(Constant.PLAY_MODE, 0)
+        playMode = intent.getIntExtra(Constant.PLAY_MODE, 1)
         binding.tvNamePlayerOne.text = UserPreference(this).userNamePlayerOne
         binding.tvNameCpu.text = UserPreference(this).userNamePlayerTwo
 
@@ -82,6 +83,7 @@ class MainActivity : AppCompatActivity() {
                     gamePlay(player1!!, random)
                 }
             }
+            hidePlayerOne()
         }
         binding.flActionPlayerPapper.setOnClickListener {
             if (!isGameFinished) {
@@ -93,6 +95,7 @@ class MainActivity : AppCompatActivity() {
                     gamePlay(player1!!, random)
                 }
             }
+            hidePlayerOne()
         }
         binding.flActionPlayerScissor.setOnClickListener {
             if (!isGameFinished) {
@@ -104,6 +107,7 @@ class MainActivity : AppCompatActivity() {
                     gamePlay(player1!!, random)
                 }
             }
+            hidePlayerOne()
         }
     }
 
@@ -119,12 +123,14 @@ class MainActivity : AppCompatActivity() {
                 player2 = 1
                 gamePlay(player1!!, player2!!)
             }
+
         }
         binding.flActionCpuScissor.setOnClickListener {
             if (!isGameFinished) {
                 player2 = 2
                 gamePlay(player1!!, player2!!)
             }
+
         }
     }
 
@@ -135,13 +141,22 @@ class MainActivity : AppCompatActivity() {
             binding.tvScorePlayerCpu.setText(totalWinplayer2.toString())
             binding.ivImageVs.setImageResource(R.drawable.icon_com_win)
             //Dialog Result for player 2 and Computer win
-            DialogResultFragment(UserPreference(this).userNamePlayerTwo + " WINNER" + "COMPUTER WINNER").show(supportFragmentManager, null)
+            if (playMode == 0){
+                DialogResultFragment(UserPreference(this).userNamePlayerTwo + " WINNER" ).show(supportFragmentManager, null)
+            } else {
+                DialogResultFragment("COM WINNER" ).show(supportFragmentManager, null)
+            }
+
+            showPlayerOne()
 
         } else if (playerOne == playerTwo) {
             Log.d(TAG, "setClickEvent draw")
             binding.ivImageVs.setImageResource(R.drawable.icon_draw)
             //Dialog Result for Draw
             DialogResultFragment("Draw").show(supportFragmentManager, null)
+
+            showPlayerOne()
+
         } else {
             Log.d(TAG, "setClickEvent User won")
             totalWinplayer1 += 1
@@ -149,6 +164,8 @@ class MainActivity : AppCompatActivity() {
             binding.ivImageVs.setImageResource(R.drawable.icon_winner)
             //Dialog Result for Player One
             DialogResultFragment(UserPreference(this).userNamePlayerOne + "WINNER").show(supportFragmentManager, null)
+
+            showPlayerOne()
 
         }
         isGameFinished = true
@@ -162,7 +179,7 @@ class MainActivity : AppCompatActivity() {
                 playerTwo
             )
         }
-        setControl()
+        //setControl()
     }
 
     internal fun resetGame() {
@@ -239,7 +256,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setControl() {
+    /*private fun setControl() {
         if (onPlayerOneClick() == onPlayerOneClick()) {
             binding.flActionPlayerRock.isInvisible = true
             binding.flActionPlayerPapper.isInvisible = true
@@ -249,7 +266,21 @@ class MainActivity : AppCompatActivity() {
             binding.flActionPlayerPapper.isInvisible = false
             binding.flActionPlayerScissor.isInvisible = false
         }
+    }*/
+
+    private fun hidePlayerOne(){
+        binding.flActionPlayerRock.isInvisible = true
+        binding.flActionPlayerPapper.isInvisible = true
+        binding.flActionPlayerScissor.isInvisible = true
     }
+
+    internal fun showPlayerOne(){
+        binding.flActionPlayerRock.isInvisible = false
+        binding.flActionPlayerPapper.isInvisible = false
+        binding.flActionPlayerScissor.isInvisible = false
+    }
+
+
 
     private fun setSelectPlayer(playerMechanic: Int) {
         when (GameMechanic.formInt(playerMechanic)) {
@@ -299,5 +330,10 @@ class MainActivity : AppCompatActivity() {
                 binding.flActionCpuScissor.setBackgroundResource(0)
             }
         }
+    }
+
+    override fun onDialogDismiss() {
+        resetGame()
+        isGameFinished = false
     }
 }

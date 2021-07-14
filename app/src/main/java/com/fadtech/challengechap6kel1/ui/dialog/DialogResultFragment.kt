@@ -1,5 +1,6 @@
 package com.fadtech.challengechap6kel1.ui.dialog
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Message
@@ -19,7 +20,7 @@ class DialogResultFragment(private val message: String) : DialogFragment() {
 
 
     private lateinit var binding: FragmentDialogResultBinding
-    private var isGameFinished: Boolean = false
+    private lateinit var listener: DialogFragmentListener
 
 
 
@@ -40,13 +41,16 @@ class DialogResultFragment(private val message: String) : DialogFragment() {
 
         binding.ivBtnCloseDialog.setOnClickListener {
             dialog?.dismiss()
+            (activity as MainActivity ).showPlayerOne()
         }
 
         // Error can not runinng game play when reset game
         binding.btnPlayagainDialogResult.setOnClickListener {
 
-            playAgain()
-            dialog?.dismiss()
+            dismiss()
+            if(this::listener.isInitialized){
+                listener.onDialogDismiss()
+            }
 
         }
 
@@ -60,10 +64,13 @@ class DialogResultFragment(private val message: String) : DialogFragment() {
         context?.startActivity(Intent(context, MenuActivity::class.java))
     }
 
-    private fun playAgain(){
-        (activity as MainActivity).resetGame()
-        isGameFinished = false
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if(context is DialogFragmentListener){
+            listener = context
+        }
     }
+
 
 
 
