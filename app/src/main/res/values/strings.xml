@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">ChallengeChap6Kel1</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_player1_name">enter your name</string>
+    <string name="hint_et_player1">Fill Field With Your Name</string>
+    <string name="text_title_landing_page1">player vs player</string>
+    <string name="text_desc_landing_page1">play japan suit against another player</string>
+    <string name="text_title_landing_page2">player vs com</string>
+    <string name="text_desc_landing_page2">play japan suit against a computer</string>
 </resources>
