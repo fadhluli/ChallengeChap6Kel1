@@ -37,12 +37,15 @@ class DialogResultFragment(private val message: String) : DialogFragment() {
         dialog?.window?.setBackgroundDrawableResource(R.drawable.bg_dialog_round_white)
 
 
-        binding.tvTitleResult.text = message
-
         binding.ivBtnCloseDialog.setOnClickListener {
             dialog?.dismiss()
             (activity as MainActivity ).showPlayerOne()
         }
+
+        binding.tvTitleResult.text = "Result Game"
+
+        binding.tvResultGame.text = message
+
 
         // Error can not runinng game play when reset game
         binding.btnPlayagainDialogResult.setOnClickListener {

@@ -72,7 +72,6 @@
         <Button
             android:id="@+id/btn_return_menu_dialog_result"
             android:layout_width="@dimen/_120sdp"
-            android:lines="1"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/primary_color"
             android:fontFamily="@font/roboto_font"
@@ -80,7 +79,7 @@
             android:textStyle="bold"
             android:textSize="@dimen/_8ssp"
             android:gravity="center"
-            android:text="Return to Menu" />
+            android:text="Return Menu" />
 
 
 
