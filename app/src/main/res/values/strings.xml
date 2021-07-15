@@ -1,5 +1,17 @@
 <resources>
     <string name="app_name">ChallengeChap6Kel1</string>
+    <string name="text_player_cpu">Computer</string>
+    <string name="text_player_player2">Player 2</string>
+    <string name="text_toast_choice">%s memilih %s</string>
+    <string name="text_shape_rock">Rock</string>
+    <string name="text_shape_paper">Papper</string>
+    <string name="text_shape_scissor">Scissor</string>
+    <string name="text_name_enemy_player">Player 2</string>
+    <string name="text_name_enemy_comp">Computer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_winner_playerone">Winner :</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="text_player1_name">enter your name</string>
     <string name="hint_et_player1">Fill Field With Your Name</string>
