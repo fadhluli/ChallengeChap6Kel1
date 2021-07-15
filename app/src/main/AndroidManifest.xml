@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChallengeChap6Kel1">
-        <activity android:name=".IrsyadActivityTest"></activity>
+        <activity android:name=".ui.inputform.InputNamePlayerTwoActivity"></activity>
+        <activity android:name=".ui.menu.MenuActivity" />
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

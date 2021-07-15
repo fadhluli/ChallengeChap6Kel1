@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+    tools:context=".ui.dialog.DialogSettingFragment"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/iv_btn_close_dialog"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:src="@drawable/icon_close_dialog"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_ranking_dialog_setting"
+        android:layout_width="@dimen/_160sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:backgroundTint="@color/primary_color"
+        android:fontFamily="@font/roboto_font"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12ssp"
+        android:text="Ranking"
+        app:layout_constraintTop_toTopOf="@+id/iv_btn_close_dialog"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+    <Button
+        android:id="@+id/btn_return_menu_dialog_setting"
+        android:layout_width="@dimen/_160sdp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/secondary_color"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:fontFamily="@font/roboto_font"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12ssp"
+        android:text="Return to Menu"
+        app:layout_constraintTop_toBottomOf="@+id/btn_ranking_dialog_setting"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

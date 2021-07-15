@@ -5,232 +5,247 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gameplay"
+    android:padding="@dimen/_15sdp"
     tools:context=".ui.main.MainActivity">
 
     <ImageView
         android:id="@+id/iv_setting"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_margin="5dp"
+        android:layout_width="@dimen/_34sdp"
+        android:layout_height="@dimen/_34sdp"
         android:src="@drawable/icon_setting_activity_gameplay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/iv_title_logo"
-        android:layout_width="200dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="16dp"
+        android:id="@+id/iv_logo_gameplay"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_120sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:src="@drawable/logo_activity_gameplay"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
         android:id="@+id/tv_name_player_one"
-        android:layout_width="121dp"
-        android:layout_height="31dp"
-        android:layout_marginBottom="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_font"
         android:textAlignment="center"
-        android:fontFamily="@font/roboto"
-        android:textColor="@color/roboto_font_color"
-        android:textSize="25sp"
+        android:textColor="@color/electroharmonix_font_color"
+        android:textSize="@dimen/_16ssp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/fl_action_player_rock"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/iv_logo_gameplay"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ll_action_player"
         tools:text="Player 1" />
+
 
     <TextView
         android:id="@+id/tv_score_player_one"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_font"
         android:textAlignment="center"
-        android:fontFamily="@font/roboto"
         android:textColor="@color/roboto_font_color"
-        android:textSize="25sp"
+        android:textSize="@dimen/_14ssp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/fl_action_player_scissor"
-        app:layout_constraintEnd_toEndOf="@+id/fl_action_player_scissor"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/iv_logo_gameplay"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ll_action_player"
         tools:text="99" />
 
     <TextView
         android:id="@+id/tv_winner_name"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_font"
+        android:text="@string/text_winner_playerone"
         android:textAlignment="center"
-        android:fontFamily="@font/roboto"
         android:textColor="@color/roboto_font_color"
-        android:textSize="25sp"
+        android:textSize="@dimen/_14ssp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/fl_action_player_scissor"
-        app:layout_constraintEnd_toStartOf="@+id/tv_score_player_one"
-        android:text="Winner :" />
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        app:layout_constraintTop_toBottomOf="@id/iv_logo_gameplay"
+        app:layout_constraintRight_toLeftOf="@+id/tv_score_player_one"
+        app:layout_constraintBottom_toTopOf="@+id/ll_action_player" />
 
-    <FrameLayout
-        android:id="@+id/fl_action_player_rock"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="@+id/fl_action_player_papper"
-        app:layout_constraintEnd_toStartOf="@+id/fl_action_player_papper"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/fl_action_player_papper"
-        tools:background="@drawable/ic_bg_click">
+    <LinearLayout
+        android:id="@+id/ll_action_player"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name_player_one"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center"
-            android:src="@drawable/icon_rock" />
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/fl_action_player_rock"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_margin="@dimen/_5sdp"
+            tools:background="@drawable/ic_bg_click">
 
-    <FrameLayout
-        android:id="@+id/fl_action_player_papper"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_title_logo"
-        tools:background="@drawable/ic_bg_click">
+            <ImageView
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_rock" />
+        </FrameLayout>
 
-        <ImageView
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center"
-            android:src="@drawable/icon_paper" />
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/fl_action_player_papper"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_margin="@dimen/_5sdp"
+            tools:background="@drawable/ic_bg_click">
 
-    <FrameLayout
-        android:id="@+id/fl_action_player_scissor"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="@+id/fl_action_player_papper"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fl_action_player_papper"
-        app:layout_constraintTop_toTopOf="@+id/fl_action_player_papper"
-        tools:background="@drawable/ic_bg_click">
+            <ImageView
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_paper" />
+        </FrameLayout>
 
-        <ImageView
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center"
-            android:src="@drawable/icon_scissors" />
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/fl_action_player_scissor"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_margin="@dimen/_5sdp"
+            tools:background="@drawable/ic_bg_click">
+
+            <ImageView
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_scissors" />
+        </FrameLayout>
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/iv_image_vs"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_margin="@dimen/_5sdp"
         android:src="@drawable/icon_vs_gameplay"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fl_action_player_papper" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_action_player" />
 
     <TextView
         android:id="@+id/tv_name_cpu"
-        android:layout_width="121dp"
-        android:layout_height="31dp"
-        android:layout_marginBottom="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_font"
         android:textAlignment="center"
-        android:fontFamily="@font/roboto"
-        android:textColor="@color/roboto_font_color"
-        android:textSize="25sp"
+        android:textColor="@color/electroharmonix_font_color"
+        android:textSize="@dimen/_16ssp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/fl_action_cpu_rock"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="CPU" />
+        android:layout_marginTop="@dimen/_2sdp"
+        app:layout_constraintTop_toBottomOf="@id/iv_image_vs"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:text="COM" />
 
     <TextView
         android:id="@+id/tv_score_player_cpu"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_font"
         android:textAlignment="center"
-        android:fontFamily="@font/roboto"
         android:textColor="@color/roboto_font_color"
-        android:textSize="25sp"
+        android:textSize="@dimen/_14ssp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/fl_action_cpu_scissor"
-        app:layout_constraintEnd_toEndOf="@+id/fl_action_cpu_scissor"
+        android:layout_marginTop="@dimen/_2sdp"
+        app:layout_constraintTop_toBottomOf="@id/iv_image_vs"
+        app:layout_constraintRight_toRightOf="parent"
         tools:text="99" />
 
     <TextView
         android:id="@+id/tv_winner_name_cpu"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_font"
+        android:text="@string/text_winner_playerone"
         android:textAlignment="center"
-        android:fontFamily="@font/roboto"
         android:textColor="@color/roboto_font_color"
-        android:textSize="25sp"
+        android:textSize="@dimen/_14ssp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/fl_action_cpu_scissor"
-        app:layout_constraintEnd_toStartOf="@+id/tv_score_player_cpu"
-        android:text="Winner :" />
+        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        app:layout_constraintTop_toBottomOf="@id/iv_image_vs"
+        app:layout_constraintRight_toLeftOf="@+id/tv_score_player_cpu" />
 
-    <FrameLayout
-        android:id="@+id/fl_action_cpu_rock"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="@+id/fl_action_cpu_papper"
-        app:layout_constraintEnd_toStartOf="@+id/fl_action_cpu_papper"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/fl_action_cpu_papper"
-        tools:background="@drawable/ic_bg_click">
+    <LinearLayout
+        android:id="@+id/ll_action_com"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name_cpu"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center"
-            android:src="@drawable/icon_rock" />
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/fl_action_cpu_rock"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_margin="@dimen/_5sdp"
+            tools:background="@drawable/ic_bg_click">
 
-    <FrameLayout
-        android:id="@+id/fl_action_cpu_papper"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_image_vs"
-        tools:background="@drawable/ic_bg_click">
+            <ImageView
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_rock" />
+        </FrameLayout>
 
-        <ImageView
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center"
-            android:src="@drawable/icon_paper" />
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/fl_action_cpu_papper"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_margin="@dimen/_5sdp"
+            tools:background="@drawable/ic_bg_click">
 
-    <FrameLayout
-        android:id="@+id/fl_action_cpu_scissor"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="@+id/fl_action_cpu_papper"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fl_action_cpu_papper"
-        app:layout_constraintTop_toTopOf="@+id/fl_action_cpu_papper"
-        tools:background="@drawable/ic_bg_click">
+            <ImageView
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_paper" />
+        </FrameLayout>
 
-        <ImageView
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center"
-            android:src="@drawable/icon_scissors" />
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/fl_action_cpu_scissor"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_margin="@dimen/_5sdp"
+            tools:background="@drawable/ic_bg_click">
+
+            <ImageView
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_scissors" />
+        </FrameLayout>
+
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/iv_reset"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_margin="20dp"
-        android:scaleType="fitXY"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
         android:src="@drawable/icon_reset_game"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fl_action_cpu_papper" />
+        app:layout_constraintTop_toBottomOf="@id/ll_action_com" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
