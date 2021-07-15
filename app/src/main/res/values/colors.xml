@@ -18,4 +18,10 @@
     <color name="roboto_font_color">#8E8E8E</color>
     //font color elctroharmonix
     <color name="electroharmonix_font_color">#4A4A4A</color>
+
+    <color name="primary_color_variant1">#EFC797</color>
+    <color name="primary_color_variant2">#FAF2B2</color>
+
+    <color name="font_electro">#4A4A4A </color>
+    <color name="font_roboto">#8E8E8E </color>
 </resources>
