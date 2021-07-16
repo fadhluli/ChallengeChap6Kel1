@@ -1,0 +1,24 @@
+package com.fadtech.challengechap6kel1.ui.menu
+
+
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import com.fadtech.challengechap6kel1.R
+
+
+class InputNamePlayerTwoActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_game_com)
+    }
+
+    private fun closeGame() {
+        startActivity(Intent(this, MenuActivity::class.java))
+    }
+
+    override fun onBackPressed() {
+        finish()
+    }
+}

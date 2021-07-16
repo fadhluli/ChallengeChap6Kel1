@@ -19,4 +19,7 @@
     <string name="text_desc_landing_page1">play japan suit against another player</string>
     <string name="text_title_landing_page2">player vs com</string>
     <string name="text_desc_landing_page2">play japan suit against a computer</string>
+    <string name="text_hello_snackbar"> Hello, </string>
+    <string name="text_close_snackbar">Close</string>
+    <string name="text_title_menu">Choose Your GamePlay</string>
 </resources>
