@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    <!--  Color Theme Custom App  -->
+    <color name="Primary_Color">#FCD6A4</color>
+    <color name="Primary_Color_Variant_First">#EFC797</color>
+    <color name="Primary_Color_Variant_Secondary">#FAF2B2</color>
+
+    <color name="Secondary_Color">#AC203E</color>
+    <color name="Secondary_Color_Variant">#8E1A38</color>
+    <color name="Font_Title_Color">#4A4A4A</color>
+    <color name="Subtitle_Color">#8E8E8E</color>
+
 </resources>

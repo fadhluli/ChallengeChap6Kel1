@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ChallengeChap6Kel1</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_hello_snackbar"> Hello, </string>
+    <string name="text_close_snackbar">Close</string>
+    <string name="text_title_menu">Choose Your GamePlay</string>
 </resources>

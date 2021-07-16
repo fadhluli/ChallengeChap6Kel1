@@ -3,7 +3,7 @@ package com.fadtech.challengechap6kel1.ui.gameplay
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.fadtech.challengechap6kel1.MainActivity
+import com.fadtech.challengechap6kel1.ui.menu.MenuActivity
 import com.fadtech.challengechap6kel1.R
 
 class GameRankingActivity : AppCompatActivity() {
@@ -13,7 +13,7 @@ class GameRankingActivity : AppCompatActivity() {
     }
 
     private fun closeGame() {
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, MenuActivity::class.java))
     }
 
     override fun onBackPressed() {
