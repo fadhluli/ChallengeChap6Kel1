@@ -11,13 +11,13 @@ import androidx.fragment.app.DialogFragment
 import com.fadtech.challengechap6kel1.R
 import com.fadtech.challengechap6kel1.databinding.FragmentDialogSettingBinding
 import com.fadtech.challengechap6kel1.ui.menu.MenuActivity
+import com.fadtech.challengechap6kel1.ui.ranking.RankingListActivity
 import com.google.android.material.snackbar.Snackbar
 
 
 class DialogSettingFragment() : DialogFragment() {
 
     private lateinit var binding: FragmentDialogSettingBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +37,8 @@ class DialogSettingFragment() : DialogFragment() {
 
         //edit your activity ranking
         binding.btnRankingDialogSetting.setOnClickListener {
-            Toast.makeText(context, "This Btn to Ranking Activity", Toast.LENGTH_SHORT).show()
+            context?.startActivity(Intent(context, RankingListActivity::class.java))
+            dialog?.dismiss()
         }
 
         binding.btnReturnMenuDialogSetting.setOnClickListener {
@@ -49,8 +50,6 @@ class DialogSettingFragment() : DialogFragment() {
     private fun finish() {
         context?.startActivity(Intent(context, MenuActivity::class.java))
     }
-
-
 
 
 }

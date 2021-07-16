@@ -16,7 +16,7 @@ import com.fadtech.challengechap6kel1.ui.dialog.DialogResultFragment
 import com.fadtech.challengechap6kel1.ui.dialog.DialogSettingFragment
 import kotlin.random.Random
 
-class MainActivity : AppCompatActivity(),DialogFragmentListener {
+class MainActivity : AppCompatActivity(), DialogFragmentListener {
     private lateinit var binding: ActivityMainBinding
     private var isGameFinished: Boolean = false
     private var playMode: Int? = null
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(),DialogFragmentListener {
 
 
     private fun start() {
-        playMode = intent.getIntExtra(Constant.PLAY_MODE, 1)
+        playMode = intent.getIntExtra(Constant.PLAY_MODE, 0)
         binding.tvNamePlayerOne.text = UserPreference(this).userNamePlayerOne
         binding.tvNameCpu.text = UserPreference(this).userNamePlayerTwo
 
@@ -77,22 +77,25 @@ class MainActivity : AppCompatActivity(),DialogFragmentListener {
             if (!isGameFinished) {
                 player1 = 0
                 setSelectPlayer(0)
-                showToastFromPlayer1Choice(player1!!)
-                if (playMode != 0) {
+                showToastFromPlayer1Choice(player1)
+                if (playMode == 1) {
                     random = Random.nextInt(0, 3)
-                    gamePlay(player1!!, random)
+                    gamePlay(player1, random)
+                } else {
+                    hidePlayerOne()
                 }
             }
-            hidePlayerOne()
         }
         binding.flActionPlayerPapper.setOnClickListener {
             if (!isGameFinished) {
                 player1 = 1
                 setSelectPlayer(1)
-                showToastFromPlayer1Choice(player1!!)
-                if (playMode != 0) {
+                showToastFromPlayer1Choice(player1)
+                if (playMode == 1) {
                     random = Random.nextInt(0, 3)
-                    gamePlay(player1!!, random)
+                    gamePlay(player1, random)
+                } else {
+                    hidePlayerOne()
                 }
             }
             hidePlayerOne()
@@ -100,11 +103,13 @@ class MainActivity : AppCompatActivity(),DialogFragmentListener {
         binding.flActionPlayerScissor.setOnClickListener {
             if (!isGameFinished) {
                 player1 = 2
-                showToastFromPlayer1Choice(player1!!)
+                showToastFromPlayer1Choice(player1)
                 setSelectPlayer(2)
-                if (playMode != 0) {
+                if (playMode == 1) {
                     random = Random.nextInt(0, 3)
-                    gamePlay(player1!!, random)
+                    gamePlay(player1, random)
+                } else {
+                    hidePlayerOne()
                 }
             }
             hidePlayerOne()
@@ -115,72 +120,91 @@ class MainActivity : AppCompatActivity(),DialogFragmentListener {
         binding.flActionCpuRock.setOnClickListener {
             if (!isGameFinished) {
                 player2 = 0
-                gamePlay(player1!!, player2!!)
+                gamePlay(player1, player2)
             }
         }
         binding.flActionCpuPapper.setOnClickListener {
             if (!isGameFinished) {
                 player2 = 1
-                gamePlay(player1!!, player2!!)
+                gamePlay(player1, player2)
             }
 
         }
         binding.flActionCpuScissor.setOnClickListener {
             if (!isGameFinished) {
                 player2 = 2
-                gamePlay(player1!!, player2!!)
+                gamePlay(player1, player2)
             }
 
         }
     }
 
-    private fun gamePlay(playerOne: Int, playerTwo: Int) {
-        if ((playerOne.plus(1)).rem(3) == playerTwo) {
-            Log.d(TAG, "setClickEvent Computer won")
-            totalWinplayer2 += 1
-            binding.tvScorePlayerCpu.setText(totalWinplayer2.toString())
-            binding.ivImageVs.setImageResource(R.drawable.icon_com_win)
-            //Dialog Result for player 2 and Computer win
-            if (playMode == 0){
-                DialogResultFragment(UserPreference(this).userNamePlayerTwo + " WINNER" ).show(supportFragmentManager, null)
+    private fun gamePlay(playerOne: Int?, playerTwo: Int?) {
+        if (playerOne != null) {
+            if ((playerOne.plus(1)).rem(3) == playerTwo) {
+                Log.d(TAG, "setClickEvent Computer won")
+                totalWinplayer2 += 1
+                binding.tvScorePlayerCpu.setText(totalWinplayer2.toString())
+                binding.ivImageVs.setImageResource(R.drawable.icon_com_win)
+                //Dialog Result for player 2 and Computer win
+                if (playMode == 0) {
+                    DialogResultFragment(UserPreference(this).userNamePlayerTwo + " WINNER").show(
+                        supportFragmentManager,
+                        null
+                    )
+                } else {
+                    DialogResultFragment("COM WINNER").show(supportFragmentManager, null)
+                }
+
+                showPlayerOne()
+
+            } else if (playerOne == playerTwo) {
+                Log.d(TAG, "setClickEvent draw")
+                binding.ivImageVs.setImageResource(R.drawable.icon_draw)
+                //Dialog Result for Draw
+                DialogResultFragment("Draw").show(supportFragmentManager, null)
+
+                showPlayerOne()
+
             } else {
-                DialogResultFragment("COM WINNER" ).show(supportFragmentManager, null)
+                Log.d(TAG, "setClickEvent User won")
+                totalWinplayer1 += 1
+                binding.tvScorePlayerOne.setText(totalWinplayer1.toString())
+                binding.ivImageVs.setImageResource(R.drawable.icon_winner)
+                //Dialog Result for Player One
+                DialogResultFragment(UserPreference(this).userNamePlayerOne + "WINNER").show(
+                    supportFragmentManager,
+                    null
+                )
+
+                showPlayerOne()
+
             }
-
-            showPlayerOne()
-
-        } else if (playerOne == playerTwo) {
-            Log.d(TAG, "setClickEvent draw")
-            binding.ivImageVs.setImageResource(R.drawable.icon_draw)
-            //Dialog Result for Draw
-            DialogResultFragment("Draw").show(supportFragmentManager, null)
-
-            showPlayerOne()
-
-        } else {
-            Log.d(TAG, "setClickEvent User won")
-            totalWinplayer1 += 1
-            binding.tvScorePlayerOne.setText(totalWinplayer1.toString())
-            binding.ivImageVs.setImageResource(R.drawable.icon_winner)
-            //Dialog Result for Player One
-            DialogResultFragment(UserPreference(this).userNamePlayerOne + "WINNER").show(supportFragmentManager, null)
-
-            showPlayerOne()
-
+            isGameFinished = true
+            setSelectPlayer(playerOne)
+            if (playerTwo != null) {
+                setSelectComputer(playerTwo)
+                if (playMode != 0) {
+                    showToastFromPlayer2Choice(getString(R.string.text_player_cpu), playerTwo)
+                } else {
+                    showToastFromPlayer2Choice(
+                        getString(R.string.text_player_player2),
+                        playerTwo
+                    )
+                }
+            }
+        }else{
+            Toast.makeText(
+                this,
+                String.format(
+                    getString(R.string.text_toast_choose_attention),
+                    UserPreference(this).userNamePlayerOne
+                ),
+                Toast.LENGTH_SHORT
+            ).show()
         }
-        isGameFinished = true
-        setSelectPlayer(playerOne)
-        setSelectComputer(playerTwo)
-        if (playMode != 0) {
-            showToastFromPlayer2Choice(getString(R.string.text_player_cpu), playerTwo)
-        } else {
-            showToastFromPlayer2Choice(
-                getString(R.string.text_player_player2),
-                playerTwo
-            )
-        }
-        //setControl()
     }
+
 
     internal fun resetGame() {
         setSelectPlayer(-1)
@@ -193,7 +217,7 @@ class MainActivity : AppCompatActivity(),DialogFragmentListener {
         binding.flActionPlayerScissor.isInvisible = false
     }
 
-    private fun showToastFromPlayer1Choice(choice: Int) {
+    private fun showToastFromPlayer1Choice(choice: Int?) {
         if (choice == 0) {
             Toast.makeText(
                 this,
@@ -225,7 +249,7 @@ class MainActivity : AppCompatActivity(),DialogFragmentListener {
         }
     }
 
-    private fun showToastFromPlayer2Choice(player:String,choice: Int) {
+    private fun showToastFromPlayer2Choice(player: String, choice: Int?) {
         if (choice == 0) {
             Toast.makeText(
                 this,
@@ -256,30 +280,17 @@ class MainActivity : AppCompatActivity(),DialogFragmentListener {
         }
     }
 
-    /*private fun setControl() {
-        if (onPlayerOneClick() == onPlayerOneClick()) {
-            binding.flActionPlayerRock.isInvisible = true
-            binding.flActionPlayerPapper.isInvisible = true
-            binding.flActionPlayerScissor.isInvisible = true
-        } else {
-            binding.flActionPlayerRock.isInvisible = false
-            binding.flActionPlayerPapper.isInvisible = false
-            binding.flActionPlayerScissor.isInvisible = false
-        }
-    }*/
-
-    private fun hidePlayerOne(){
+    private fun hidePlayerOne() {
         binding.flActionPlayerRock.isInvisible = true
         binding.flActionPlayerPapper.isInvisible = true
         binding.flActionPlayerScissor.isInvisible = true
     }
 
-    internal fun showPlayerOne(){
+    internal fun showPlayerOne() {
         binding.flActionPlayerRock.isInvisible = false
         binding.flActionPlayerPapper.isInvisible = false
         binding.flActionPlayerScissor.isInvisible = false
     }
-
 
 
     private fun setSelectPlayer(playerMechanic: Int) {
