@@ -22,4 +22,8 @@
     <string name="text_hello_snackbar"> Hello, </string>
     <string name="text_close_snackbar">Close</string>
     <string name="text_title_menu">Choose Your GamePlay</string>
+    <string name="text_menu_welcome">Hi %s</string>
+    <string name="text_hint_input_player2">Player Two Name</string>
+    <string name="text_total_wins">%s Wins</string>
+    <string name="text_result_game">Result Game</string>
 </resources>

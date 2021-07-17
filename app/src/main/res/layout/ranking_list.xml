@@ -20,6 +20,7 @@
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
             android:layout_marginStart="@dimen/_8sdp"
+            android:background="@drawable/icon_box_rangking"
             android:gravity="center"
             android:textColor="@color/secondary_color_variant"
             android:textSize="@dimen/_20ssp"

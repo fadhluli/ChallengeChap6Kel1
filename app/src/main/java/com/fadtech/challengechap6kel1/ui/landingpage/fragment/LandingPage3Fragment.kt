@@ -7,9 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.fadtech.challengechap6kel1.data.preference.UserPreference
 import com.fadtech.challengechap6kel1.databinding.ActivityLandingPageBinding
 import com.fadtech.challengechap6kel1.databinding.FragmentLandingPage3Binding
+import com.fadtech.challengechap6kel1.preference.UserPreference
+import com.fadtech.challengechap6kel1.ui.menu.MenuActivity
 
 class LandingPage3Fragment : Fragment() {
 
@@ -33,7 +34,7 @@ class LandingPage3Fragment : Fragment() {
     private fun prefilledName() {
         context?.let {
             userPreference = UserPreference(it)
-            binding.etPlayer1Name.setText(userPreference.userNamePlayer1.orEmpty())
+            binding.etPlayer1Name.setText(userPreference.userNamePlayerOne.orEmpty())
         }
     }
 
@@ -56,17 +57,19 @@ class LandingPage3Fragment : Fragment() {
 
     private fun navigateToGameMenu() {
         if (isFormFilled()) {
-            userPreference.userNamePlayer1 = binding.etPlayer1Name.text.toString()
-            Toast.makeText(context, "NAVIGATE TO GAME MENU", Toast.LENGTH_SHORT).show()
-            //context?.startActivity(Intent(context, MenuActivity::class.java))
+            userPreference.userNamePlayerOne = binding.etPlayer1Name.text.toString()
+
+            val intent = Intent(context, MenuActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
     }
 
-    private fun setClickListener(){
-            binding.ivBtnNavigateToMenu.setOnClickListener {
-                if(isFormFilled()){
+    private fun setClickListener() {
+        binding.ivBtnNavigateToMenu.setOnClickListener {
+            if (isFormFilled()) {
                 navigateToGameMenu()
-                }
             }
         }
+    }
 }
