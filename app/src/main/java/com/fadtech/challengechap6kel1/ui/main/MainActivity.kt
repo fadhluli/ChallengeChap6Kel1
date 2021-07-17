@@ -181,9 +181,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, UserInsertCont
                     supportFragmentManager,
                     null
                 )
-
                 showPlayerOne()
-
             }
             isGameFinished = true
             setSelectPlayer(playerOne)
@@ -355,14 +353,13 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, UserInsertCont
                     totalWin = totalWinplayer1
                 )
                 user?.let { presenter.insertUser(it) }
-
-                if (totalWinplayer2 > 0) {
-                    user = User(
-                        username = UserPreference(this).userNamePlayerTwo.orEmpty(),
-                        totalWin = totalWinplayer2
-                    )
-                    user?.let { presenter.insertUser(it) }
-                }
+            }
+            if (totalWinplayer2 > 0) {
+                user = User(
+                    username = UserPreference(this).userNamePlayerTwo.orEmpty(),
+                    totalWin = totalWinplayer2
+                )
+                user?.let { presenter.insertUser(it) }
             }
         } else {
             if (totalWinplayer1 > 0) {
@@ -380,6 +377,11 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, UserInsertCont
         startActivity(Intent(this, RankingListActivity::class.java))
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDestroy()
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
         insertUserToDb()
@@ -393,13 +395,11 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, UserInsertCont
     override fun onSuccess() {
         //when save data success
         Toast.makeText(this, "Save todo Success!", Toast.LENGTH_SHORT).show()
-        finish()
     }
 
     override fun onFailed() {
         //when save data failed
         Toast.makeText(this, "Save todo Failed!", Toast.LENGTH_SHORT).show()
-        finish()
     }
 
     override fun initView() {

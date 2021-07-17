@@ -46,7 +46,6 @@
         android:hint="@string/text_hint_input_player2"
         android:padding="@dimen/_5sdp"
         android:textAlignment="center"
-        android:textAllCaps="true"
         android:textColor="@color/black"
         android:textSize="@dimen/_20ssp"
         app:layout_constraintLeft_toLeftOf="parent"

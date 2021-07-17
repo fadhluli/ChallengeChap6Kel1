@@ -26,7 +26,7 @@ class DialogResultFragment(private val message: String) : DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDialogResultBinding.inflate(inflater, container, false)
-//        dialog?.setCancelable(false)
+        dialog?.setCancelable(false)
         return binding.root
     }
 
@@ -50,7 +50,6 @@ class DialogResultFragment(private val message: String) : DialogFragment() {
             if(this::listener.isInitialized){
                 listener.onDialogDismiss()
             }
-
         }
 
         binding.btnReturnMenuDialogResult.setOnClickListener {
