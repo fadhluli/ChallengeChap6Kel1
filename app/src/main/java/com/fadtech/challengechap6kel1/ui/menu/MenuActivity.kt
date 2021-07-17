@@ -15,7 +15,6 @@ class MenuActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMenuBinding
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
@@ -48,10 +47,6 @@ class MenuActivity : AppCompatActivity() {
 
     private fun setClickListenersPlayerPlayer() {
         binding.btnImgVsCom.setOnClickListener {
-//            selectedButton = 1
-//            binding.btnImgVsCom.setBackgroundColor(R.drawable.bg_slider3_uilanding)
-//            binding.btnImgVsPlayer.setBackgroundColor(0)
-//        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             val intent = Intent(this@MenuActivity, MainActivity::class.java).apply {
                 putExtra(Constant.PLAY_MODE, 1)
             }
@@ -59,16 +54,10 @@ class MenuActivity : AppCompatActivity() {
         }
 
         binding.btnImgVsPlayer.setOnClickListener {
-//            selectedButton = 2
-//            binding.btnImgVsPlayer.setBackgroundColor(R.drawable.bg_slider3_uilanding)
-//            binding.btnImgVsCom.setBackgroundColor(0)
             startActivity(Intent(this, InputNamePlayerTwoActivity::class.java))
 
         }
         binding.btnImgRanking.setOnClickListener {
-//            selectedButton = 3
-//            binding.btnImgVsPlayer.setBackgroundColor(R.drawable.bg_slider3_uilanding)
-//            binding.btnImgVsCom.setBackgroundColor(0)
             startActivity(Intent(this, RankingListActivity::class.java))
         }
     }

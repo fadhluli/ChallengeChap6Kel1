@@ -10,7 +10,7 @@
 
     <ImageView
         android:id="@+id/iv_ic_landing_page2"
-        android:layout_width="@dimen/_300sdp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/_250sdp"
         android:layout_marginTop="40dp"
         android:src="@drawable/icon_ilustration_slider2_uilanding"

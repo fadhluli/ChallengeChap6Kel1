@@ -58,7 +58,9 @@ class DialogResultFragment(private val message: String) : DialogFragment() {
     }
 
     private fun finish() {
-        context?.startActivity(Intent(context, MenuActivity::class.java))
+        val intent = Intent(context, MenuActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
     override fun onAttach(context: Context) {

@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, UserInsertCont
     private var player1: Int? = null
     private var totalWinplayer1: Int = 0
     private var totalWinplayer2: Int = 0
-    private var flag: Int = -1
     private val TAG = MainActivity::class.java.simpleName
     private lateinit var presenter: UserInsertContract.Presenter
     private var user: User? = null
@@ -51,12 +50,10 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, UserInsertCont
         binding.tvNamePlayerOne.text = UserPreference(this).userNamePlayerOne
 
         if (playMode == 0) {
-            flag = 0
             binding.tvNameCpu.text = UserPreference(this).userNamePlayerTwo
             onPlayerOneClick()
             onPlayerTwoClick()
         } else {
-            flag = 1
             binding.tvNameCpu.text = getString(R.string.text_name_enemy_comp)
             onPlayerOneClick()
         }
@@ -71,13 +68,12 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, UserInsertCont
 
     private fun onSettingClick() {
         binding.ivSetting.setOnClickListener {
-
             //Dialog Setting Dialog Click Listener
             DialogSettingFragment().show(supportFragmentManager, null)
-
         }
     }
 
+    //ketika player1 klik
     private fun onPlayerOneClick() {
         var random: Int
         binding.flActionPlayerRock.setOnClickListener {
@@ -121,6 +117,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, UserInsertCont
         }
     }
 
+    //ketika player2 klik
     private fun onPlayerTwoClick() {
         binding.flActionCpuRock.setOnClickListener {
             if (!isGameFinished) {
@@ -144,6 +141,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, UserInsertCont
         }
     }
 
+    //nentuin siapa yg menang
     private fun gamePlay(playerOne: Int?, playerTwo: Int?) {
         if (playerOne != null) {
             if ((playerOne.plus(1)).rem(3) == playerTwo) {
@@ -177,7 +175,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, UserInsertCont
                 binding.tvScorePlayerOne.setText(totalWinplayer1.toString())
                 binding.ivImageVs.setImageResource(R.drawable.icon_winner)
                 //Dialog Result for Player One
-                DialogResultFragment(UserPreference(this).userNamePlayerOne + "WINNER").show(
+                DialogResultFragment(UserPreference(this).userNamePlayerOne + " WINNER").show(
                     supportFragmentManager,
                     null
                 )
@@ -295,6 +293,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, UserInsertCont
         binding.flActionPlayerScissor.isInvisible = false
     }
 
+    //add background for player1 choice
     private fun setSelectPlayer(playerMechanic: Int) {
         when (GameMechanic.formInt(playerMechanic)) {
             GameMechanic.ROCK -> {
@@ -320,6 +319,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, UserInsertCont
         }
     }
 
+    //add background for player2 / computer choice
     private fun setSelectComputer(compMechanic: Int) {
         when (GameMechanic.formInt(compMechanic)) {
             GameMechanic.ROCK -> {
@@ -345,6 +345,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, UserInsertCont
         }
     }
 
+    // insert user to database
     private fun insertUserToDb() {
         if (playMode == 0) {
             if (totalWinplayer1 > 0) {
