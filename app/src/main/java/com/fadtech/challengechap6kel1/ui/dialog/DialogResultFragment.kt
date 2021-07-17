@@ -18,17 +18,15 @@ import com.fadtech.challengechap6kel1.ui.menu.MenuActivity
 
 class DialogResultFragment(private val message: String) : DialogFragment() {
 
-
     private lateinit var binding: FragmentDialogResultBinding
     private lateinit var listener: DialogFragmentListener
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDialogResultBinding.inflate(inflater, container, false)
+//        dialog?.setCancelable(false)
         return binding.root
     }
 
@@ -36,20 +34,18 @@ class DialogResultFragment(private val message: String) : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         dialog?.window?.setBackgroundDrawableResource(R.drawable.bg_dialog_round_white)
 
-
         binding.ivBtnCloseDialog.setOnClickListener {
-            dialog?.dismiss()
-            (activity as MainActivity ).showPlayerOne()
+            dismiss()
+            (activity as MainActivity ).onDialogDismiss()
         }
 
-        binding.tvTitleResult.text = "Result Game"
+        binding.tvTitleResult.text = getString(R.string.text_result_game)
 
         binding.tvResultGame.text = message
 
 
         // Error can not runinng game play when reset game
         binding.btnPlayagainDialogResult.setOnClickListener {
-
             dismiss()
             if(this::listener.isInitialized){
                 listener.onDialogDismiss()
@@ -60,7 +56,6 @@ class DialogResultFragment(private val message: String) : DialogFragment() {
         binding.btnReturnMenuDialogResult.setOnClickListener {
             finish()
         }
-
     }
 
     private fun finish() {
@@ -73,10 +68,4 @@ class DialogResultFragment(private val message: String) : DialogFragment() {
             listener = context
         }
     }
-
-
-
-
-
-
 }

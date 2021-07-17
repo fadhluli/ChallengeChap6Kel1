@@ -52,7 +52,7 @@ class LandingPageActivity : AppCompatActivity() {
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                if (position == 2 ) {
+                if (position == 2) {
                     ivBtnNext.visibility = View.GONE
                     circleIndicator.visibility = View.GONE
 

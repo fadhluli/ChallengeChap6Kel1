@@ -20,7 +20,6 @@ interface RankingListContract {
         //initialize list
         fun initList()
 
-        fun initView()
     }
     interface Presenter : BaseContract.BasePresenter{
         fun getUserRankingList()

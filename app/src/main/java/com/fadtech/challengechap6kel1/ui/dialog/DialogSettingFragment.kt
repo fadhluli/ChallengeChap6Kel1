@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.fadtech.challengechap6kel1.R
 import com.fadtech.challengechap6kel1.databinding.FragmentDialogSettingBinding
+import com.fadtech.challengechap6kel1.ui.main.MainActivity
 import com.fadtech.challengechap6kel1.ui.menu.MenuActivity
 import com.fadtech.challengechap6kel1.ui.ranking.RankingListActivity
 import com.google.android.material.snackbar.Snackbar
@@ -35,14 +36,16 @@ class DialogSettingFragment() : DialogFragment() {
             dialog?.dismiss()
         }
 
-        //edit your activity ranking
         binding.btnRankingDialogSetting.setOnClickListener {
-            context?.startActivity(Intent(context, RankingListActivity::class.java))
+//            context?.startActivity(Intent(context, RankingListActivity::class.java))
+            (activity as MainActivity).navigateToRankingListActivity()
             dialog?.dismiss()
         }
 
         binding.btnReturnMenuDialogSetting.setOnClickListener {
-            finish()
+            val intent = Intent(context, MenuActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
 
     }

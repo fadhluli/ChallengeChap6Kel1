@@ -1,6 +1,6 @@
 package com.fadtech.challengechap6kel1.ui.main
 
-
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,15 +8,19 @@ import android.widget.Toast
 import androidx.core.view.isInvisible
 import com.fadtech.challengechap6kel1.R
 import com.fadtech.challengechap6kel1.data.constant.Constant
+import com.fadtech.challengechap6kel1.data.local.room.UserRoomDatabase
+import com.fadtech.challengechap6kel1.data.local.room.datasource.UserDataSource
+import com.fadtech.challengechap6kel1.data.model.User
 import com.fadtech.challengechap6kel1.databinding.ActivityMainBinding
 import com.fadtech.challengechap6kel1.enum.GameMechanic
 import com.fadtech.challengechap6kel1.preference.UserPreference
 import com.fadtech.challengechap6kel1.ui.dialog.DialogFragmentListener
 import com.fadtech.challengechap6kel1.ui.dialog.DialogResultFragment
 import com.fadtech.challengechap6kel1.ui.dialog.DialogSettingFragment
+import com.fadtech.challengechap6kel1.ui.ranking.RankingListActivity
 import kotlin.random.Random
 
-class MainActivity : AppCompatActivity(), DialogFragmentListener {
+class MainActivity : AppCompatActivity(), DialogFragmentListener, UserInsertContract.View {
     private lateinit var binding: ActivityMainBinding
     private var isGameFinished: Boolean = false
     private var playMode: Int? = null
@@ -26,13 +30,17 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener {
     private var totalWinplayer2: Int = 0
     private var flag: Int = -1
     private val TAG = MainActivity::class.java.simpleName
+    private lateinit var presenter: UserInsertContract.Presenter
+    private var user: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
-        start()
+        val dataSource = UserDataSource(UserRoomDatabase.getInstance(this).userDao())
+        presenter = UserInsertPresenter(dataSource, this)
+        initView()
         onResetClick()
         onSettingClick()
     }
@@ -41,11 +49,10 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener {
     private fun start() {
         playMode = intent.getIntExtra(Constant.PLAY_MODE, 0)
         binding.tvNamePlayerOne.text = UserPreference(this).userNamePlayerOne
-        binding.tvNameCpu.text = UserPreference(this).userNamePlayerTwo
 
         if (playMode == 0) {
             flag = 0
-            binding.tvNameCpu.text = getString(R.string.text_name_enemy_player)
+            binding.tvNameCpu.text = UserPreference(this).userNamePlayerTwo
             onPlayerOneClick()
             onPlayerTwoClick()
         } else {
@@ -98,7 +105,6 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener {
                     hidePlayerOne()
                 }
             }
-            hidePlayerOne()
         }
         binding.flActionPlayerScissor.setOnClickListener {
             if (!isGameFinished) {
@@ -112,7 +118,6 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener {
                     hidePlayerOne()
                 }
             }
-            hidePlayerOne()
         }
     }
 
@@ -193,7 +198,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener {
                     )
                 }
             }
-        }else{
+        } else {
             Toast.makeText(
                 this,
                 String.format(
@@ -292,7 +297,6 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener {
         binding.flActionPlayerScissor.isInvisible = false
     }
 
-
     private fun setSelectPlayer(playerMechanic: Int) {
         when (GameMechanic.formInt(playerMechanic)) {
             GameMechanic.ROCK -> {
@@ -343,8 +347,62 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener {
         }
     }
 
+    private fun insertUserToDb() {
+        if (playMode == 0) {
+            if (totalWinplayer1 > 0) {
+                user = User(
+                    username = UserPreference(this).userNamePlayerOne.orEmpty(),
+                    totalWin = totalWinplayer1
+                )
+                user?.let { presenter.insertUser(it) }
+
+                if (totalWinplayer2 > 0) {
+                    user = User(
+                        username = UserPreference(this).userNamePlayerTwo.orEmpty(),
+                        totalWin = totalWinplayer2
+                    )
+                    user?.let { presenter.insertUser(it) }
+                }
+            }
+        } else {
+            if (totalWinplayer1 > 0) {
+                user = User(
+                    username = UserPreference(this).userNamePlayerOne.orEmpty(),
+                    totalWin = totalWinplayer1
+                )
+                user?.let { presenter.insertUser(it) }
+            }
+        }
+    }
+
+    fun navigateToRankingListActivity() {
+        insertUserToDb()
+        startActivity(Intent(this, RankingListActivity::class.java))
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        insertUserToDb()
+    }
+
     override fun onDialogDismiss() {
         resetGame()
         isGameFinished = false
+    }
+
+    override fun onSuccess() {
+        //when save data success
+        Toast.makeText(this, "Save todo Success!", Toast.LENGTH_SHORT).show()
+        finish()
+    }
+
+    override fun onFailed() {
+        //when save data failed
+        Toast.makeText(this, "Save todo Failed!", Toast.LENGTH_SHORT).show()
+        finish()
+    }
+
+    override fun initView() {
+        start()
     }
 }

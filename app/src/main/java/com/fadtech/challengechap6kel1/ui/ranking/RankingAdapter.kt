@@ -21,7 +21,10 @@ class RankingAdapter: RecyclerView.Adapter<RankingAdapter.RankingViewHolder>() {
         fun bindView(item: User, position: Int) {
             with(item) {
                 binding.tvUsername.text = username
-                binding.tvTotalWin.text = totalWin.toString()
+                binding.tvTotalWin.text = String.format(
+                    "%s Wins",
+                    totalWin.toString()
+                )
                 binding.tvRanking.text = (position + 1).toString()
             }
         }

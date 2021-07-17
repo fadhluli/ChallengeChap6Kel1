@@ -1,11 +1,11 @@
 package com.fadtech.challengechap6kel1.base
 
 interface BaseContract {
-    interface BasePresenter{
+    interface BasePresenter {
         fun onDestroy()
     }
 
-    interface BaseView{
-//        fun initView()
+    interface BaseView {
+        fun initView()
     }
 }

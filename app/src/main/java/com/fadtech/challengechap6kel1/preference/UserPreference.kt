@@ -10,8 +10,8 @@ class UserPreference(var context: Context) {
     companion object {
         private const val NAME = "RockScissorPaper"
         private const val MODE = Context.MODE_PRIVATE
-        private val PREF_USER_NAME_PLAYER_ONE = Pair("IS_USER_NAME", null)
-        private val PREF_USER_NAME_PLAYER_TWO = Pair("IS_USER_NAME", null)
+        private val PREF_USER_NAME_PLAYER_ONE = Pair("IS_USER_NAME1", null)
+        private val PREF_USER_NAME_PLAYER_TWO = Pair("IS_USER_NAME2", null)
     }
 
     var userNamePlayerOne : String?
