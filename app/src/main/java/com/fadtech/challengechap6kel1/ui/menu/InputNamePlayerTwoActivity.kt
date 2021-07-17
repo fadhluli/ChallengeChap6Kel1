@@ -3,12 +3,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.fadtech.challengechap6kel1.R
 import com.fadtech.challengechap6kel1.databinding.ActivityInputNamePlayerTwoBinding
-import com.fadtech.challengechap6kel1.databinding.FragmentLandingPage3Binding
 import com.fadtech.challengechap6kel1.preference.UserPreference
 import com.fadtech.challengechap6kel1.ui.main.MainActivity
-
 
 class InputNamePlayerTwoActivity : AppCompatActivity() {
 
