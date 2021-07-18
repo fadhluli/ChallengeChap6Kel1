@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+    tools:context=".ui.dialog.DialogSettingFragment">
+
+    <ImageView
+        android:id="@+id/iv_btn_close_dialog"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:src="@drawable/icon_close_dialog"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_title_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:fontFamily="@font/roboto_font"
+        android:gravity="center"
+        android:text="Result Game"
+        android:textColor="@color/roboto_font_color"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_btn_close_dialog" />
+
+    <TextView
+        android:id="@+id/tv_result_game"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/electroharmonix_font"
+        android:gravity="center"
+        android:textColor="@color/secondary_color"
+        android:textSize="@dimen/_18ssp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_result"
+        tools:text="Player 1 Winner" />
+
+    <LinearLayout
+        android:id="@+id/ll_btn_option_dialog_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/_5sdp"
+        android:weightSum="2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_result_game">
+
+        <Button
+            android:id="@+id/btn_playagain_dialog_result"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/primary_color"
+            android:fontFamily="@font/roboto_font"
+            android:gravity="center"
+            android:text="Play Again"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_8ssp"
+            android:textStyle="bold" />
+
+
+        <Button
+            android:id="@+id/btn_return_menu_dialog_result"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/primary_color"
+            android:fontFamily="@font/roboto_font"
+            android:gravity="center"
+            android:text="Return Menu"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_8ssp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
