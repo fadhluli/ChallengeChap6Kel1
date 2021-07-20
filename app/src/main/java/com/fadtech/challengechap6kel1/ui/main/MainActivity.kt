@@ -1,10 +1,10 @@
 package com.fadtech.challengechap6kel1.ui.main
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isInvisible
 import com.fadtech.challengechap6kel1.R
 import com.fadtech.challengechap6kel1.data.constant.Constant
@@ -151,7 +151,9 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, UserInsertCont
                 binding.ivImageVs.setImageResource(R.drawable.icon_com_win)
                 //Dialog Result for player 2 and Computer win
                 if (playMode == 0) {
-                    DialogResultFragment(UserPreference(this).userNamePlayerTwo + " WINNER").show(
+                    DialogResultFragment(
+                        UserPreference(this).userNamePlayerTwo + " WINNER"
+                    ).show(
                         supportFragmentManager,
                         null
                     )

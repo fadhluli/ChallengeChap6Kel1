@@ -1,8 +1,8 @@
 package com.fadtech.challengechap6kel1.ui.menu
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.fadtech.challengechap6kel1.databinding.ActivityInputNamePlayerTwoBinding
 import com.fadtech.challengechap6kel1.preference.UserPreference
 import com.fadtech.challengechap6kel1.ui.main.MainActivity

@@ -26,4 +26,5 @@
     <string name="text_hint_input_player2">Player Two Name</string>
     <string name="text_total_wins">%s Wins</string>
     <string name="text_result_game">Result Game</string>
+    <string name="text_no_data_message">No Data</string>
 </resources>

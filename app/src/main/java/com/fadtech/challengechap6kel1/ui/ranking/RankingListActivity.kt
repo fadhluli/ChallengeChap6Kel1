@@ -1,9 +1,9 @@
 package com.fadtech.challengechap6kel1.ui.ranking
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fadtech.challengechap6kel1.R
 import com.fadtech.challengechap6kel1.data.local.room.UserRoomDatabase
@@ -60,7 +60,7 @@ class RankingListActivity : AppCompatActivity(), RankingListContract.View {
     }
 
     override fun setEmptyStateVisibility(isDataEmpty: Boolean) {
-        binding.tvMessage.text = "No Data"
+        binding.tvMessage.text = getString(R.string.text_no_data_message)
         binding.tvMessage.visibility = if (isDataEmpty) View.VISIBLE else View.GONE
     }
 
