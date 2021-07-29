@@ -6,10 +6,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class RankingListPresenter(
+class RankingPresenter(
     private val datasource: UserDataSource,
-    private val view: RankingListContract.View
-): BasePresenterImpl(), RankingListContract.Presenter {
+    private val view: RankingContract.View
+): BasePresenterImpl(), RankingContract.Presenter {
 
     override fun getUserRankingList() {
         view.setLoadingStatus(true)

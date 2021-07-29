@@ -11,11 +11,11 @@ import com.fadtech.challengechap6kel1.data.local.room.datasource.UserDataSource
 import com.fadtech.challengechap6kel1.data.model.User
 import com.fadtech.challengechap6kel1.databinding.ActivityRankingBinding
 
-class RankingListActivity : AppCompatActivity(), RankingListContract.View {
+class RankingActivity : AppCompatActivity(), RankingContract.View {
 
     private lateinit var binding: ActivityRankingBinding
     private lateinit var rankingAdapter: RankingAdapter
-    private lateinit var presenter: RankingListContract.Presenter
+    private lateinit var presenter: RankingContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +74,7 @@ class RankingListActivity : AppCompatActivity(), RankingListContract.View {
 
     override fun initView() {
         val dataSource = UserDataSource(UserRoomDatabase.getInstance(this).userDao())
-        presenter = RankingListPresenter(dataSource, this)
+        presenter = RankingPresenter(dataSource, this)
         initList()
     }
 

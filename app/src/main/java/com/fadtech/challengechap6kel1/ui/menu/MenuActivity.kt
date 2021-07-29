@@ -8,7 +8,7 @@ import com.fadtech.challengechap6kel1.data.constant.Constant
 import com.fadtech.challengechap6kel1.databinding.ActivityMenuBinding
 import com.fadtech.challengechap6kel1.preference.UserPreference
 import com.fadtech.challengechap6kel1.ui.main.MainActivity
-import com.fadtech.challengechap6kel1.ui.ranking.RankingListActivity
+import com.fadtech.challengechap6kel1.ui.ranking.RankingActivity
 import com.google.android.material.snackbar.Snackbar
 
 class MenuActivity : AppCompatActivity() {
@@ -58,7 +58,7 @@ class MenuActivity : AppCompatActivity() {
 
         }
         binding.btnImgRanking.setOnClickListener {
-            startActivity(Intent(this, RankingListActivity::class.java))
+            startActivity(Intent(this, RankingActivity::class.java))
         }
     }
 

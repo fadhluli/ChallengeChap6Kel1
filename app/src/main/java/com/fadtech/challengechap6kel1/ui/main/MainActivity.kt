@@ -17,10 +17,10 @@ import com.fadtech.challengechap6kel1.preference.UserPreference
 import com.fadtech.challengechap6kel1.ui.dialog.DialogFragmentListener
 import com.fadtech.challengechap6kel1.ui.dialog.DialogResultFragment
 import com.fadtech.challengechap6kel1.ui.dialog.DialogSettingFragment
-import com.fadtech.challengechap6kel1.ui.ranking.RankingListActivity
+import com.fadtech.challengechap6kel1.ui.ranking.RankingActivity
 import kotlin.random.Random
 
-class MainActivity : AppCompatActivity(), DialogFragmentListener, UserInsertContract.View {
+class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.View {
     private lateinit var binding: ActivityMainBinding
     private var isGameFinished: Boolean = false
     private var playMode: Int? = null
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, UserInsertCont
     private var totalWinplayer1: Int = 0
     private var totalWinplayer2: Int = 0
     private val TAG = MainActivity::class.java.simpleName
-    private lateinit var presenter: UserInsertContract.Presenter
+    private lateinit var presenter: MainContract.Presenter
     private var user: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, UserInsertCont
         setContentView(binding.root)
         supportActionBar?.hide()
         val dataSource = UserDataSource(UserRoomDatabase.getInstance(this).userDao())
-        presenter = UserInsertPresenter(dataSource, this)
+        presenter = MainPresenter(dataSource, this)
         initView()
         onResetClick()
         onSettingClick()
@@ -377,7 +377,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, UserInsertCont
 
     fun navigateToRankingListActivity() {
         insertUserToDb()
-        startActivity(Intent(this, RankingListActivity::class.java))
+        startActivity(Intent(this, RankingActivity::class.java))
     }
 
     override fun onDestroy() {

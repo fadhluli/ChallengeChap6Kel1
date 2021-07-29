@@ -6,10 +6,10 @@ import com.fadtech.challengechap6kel1.data.model.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class UserInsertPresenter(
+class MainPresenter(
     private val dataSource: UserDataSource,
-    private val view: UserInsertContract.View
-) : BasePresenterImpl(), UserInsertContract.Presenter {
+    private val view: MainContract.View
+) : BasePresenterImpl(), MainContract.Presenter {
     override fun insertUser(user: User) {
         scope.launch {
             try {
