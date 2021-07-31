@@ -8,7 +8,12 @@ interface MainContract {
         fun onSuccess()
         fun onFailed()
     }
-    interface Presenter: BaseContract.BasePresenter{
+
+//    interface Presenter: BaseContract.BasePresenter{
+//        fun insertUser(user: User)
+//    }
+
+    interface ViewModel{
         fun insertUser(user: User)
     }
 }

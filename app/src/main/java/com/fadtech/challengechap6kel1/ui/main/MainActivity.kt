@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isInvisible
 import com.fadtech.challengechap6kel1.R
+import com.fadtech.challengechap6kel1.base.GenericViewModelFactory
 import com.fadtech.challengechap6kel1.data.constant.Constant
 import com.fadtech.challengechap6kel1.data.local.room.UserRoomDatabase
 import com.fadtech.challengechap6kel1.data.local.room.datasource.UserDataSource
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
     private var totalWinplayer1: Int = 0
     private var totalWinplayer2: Int = 0
     private val TAG = MainActivity::class.java.simpleName
-    private lateinit var presenter: MainContract.Presenter
+    private lateinit var viewModel: MainViewModel
     private var user: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,8 +38,6 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
-        val dataSource = UserDataSource(UserRoomDatabase.getInstance(this).userDao())
-        presenter = MainPresenter(dataSource, this)
         initView()
         onResetClick()
         onSettingClick()
@@ -355,14 +354,14 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
                     username = UserPreference(this).userNamePlayerOne.orEmpty(),
                     totalWin = totalWinplayer1
                 )
-                user?.let { presenter.insertUser(it) }
+                user?.let { viewModel.insertUser(it) }
             }
             if (totalWinplayer2 > 0) {
                 user = User(
                     username = UserPreference(this).userNamePlayerTwo.orEmpty(),
                     totalWin = totalWinplayer2
                 )
-                user?.let { presenter.insertUser(it) }
+                user?.let { viewModel.insertUser(it) }
             }
         } else {
             if (totalWinplayer1 > 0) {
@@ -370,7 +369,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
                     username = UserPreference(this).userNamePlayerOne.orEmpty(),
                     totalWin = totalWinplayer1
                 )
-                user?.let { presenter.insertUser(it) }
+                user?.let { viewModel.insertUser(it) }
             }
         }
     }
@@ -380,10 +379,6 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
         startActivity(Intent(this, RankingActivity::class.java))
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter.onDestroy()
-    }
 
     override fun onBackPressed() {
         super.onBackPressed()
@@ -407,5 +402,22 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
 
     override fun initView() {
         start()
+        initViewModel()
+    }
+
+    override fun initViewModel() {
+        val dataSource = UserDataSource(UserRoomDatabase.getInstance(this).userDao())
+        val repository = MainRepository(dataSource)
+        viewModel =
+            GenericViewModelFactory(MainViewModel(repository)).create(MainViewModel::class.java)
+
+        viewModel.transactionResult.observe(this, { isTransactionSuccess ->
+            if (isTransactionSuccess) {
+                onSuccess()
+            } else {
+                onFailed()
+            }
+        })
+
     }
 }

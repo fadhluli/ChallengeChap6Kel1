@@ -21,7 +21,12 @@ interface RankingContract {
         fun initList()
 
     }
-    interface Presenter : BaseContract.BasePresenter{
+
+//    interface Presenter : BaseContract.BasePresenter{
+//        fun getUserRankingList()
+//    }
+
+    interface ViewModel{
         fun getUserRankingList()
     }
 }
