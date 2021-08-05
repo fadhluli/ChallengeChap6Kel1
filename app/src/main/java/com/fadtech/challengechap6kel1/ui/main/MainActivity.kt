@@ -19,6 +19,9 @@ import com.fadtech.challengechap6kel1.ui.dialog.DialogFragmentListener
 import com.fadtech.challengechap6kel1.ui.dialog.DialogResultFragment
 import com.fadtech.challengechap6kel1.ui.dialog.DialogSettingFragment
 import com.fadtech.challengechap6kel1.ui.ranking.RankingActivity
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.*
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.View {
@@ -348,18 +351,22 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
 
     // insert user to database
     private fun insertUserToDb() {
+        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        val currentDate = sdf.format(Date())
         if (playMode == 0) {
             if (totalWinplayer1 > 0) {
                 user = User(
                     username = UserPreference(this).userNamePlayerOne.orEmpty(),
-                    totalWin = totalWinplayer1
+                    totalWin = totalWinplayer1,
+                    date = currentDate
                 )
                 user?.let { viewModel.insertUser(it) }
             }
             if (totalWinplayer2 > 0) {
                 user = User(
                     username = UserPreference(this).userNamePlayerTwo.orEmpty(),
-                    totalWin = totalWinplayer2
+                    totalWin = totalWinplayer2,
+                    date = currentDate
                 )
                 user?.let { viewModel.insertUser(it) }
             }
@@ -367,7 +374,8 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
             if (totalWinplayer1 > 0) {
                 user = User(
                     username = UserPreference(this).userNamePlayerOne.orEmpty(),
-                    totalWin = totalWinplayer1
+                    totalWin = totalWinplayer1,
+                    date = currentDate
                 )
                 user?.let { viewModel.insertUser(it) }
             }

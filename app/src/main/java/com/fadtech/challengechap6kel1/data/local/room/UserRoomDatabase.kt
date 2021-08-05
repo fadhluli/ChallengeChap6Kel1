@@ -8,7 +8,7 @@ import com.fadtech.challengechap6kel1.data.local.room.dao.UserDao
 import com.fadtech.challengechap6kel1.data.model.User
 
 
-@Database(entities = [User::class], version = 1)
+@Database(entities = [User::class], version = 2)
 abstract class UserRoomDatabase: RoomDatabase() {
     abstract fun userDao(): UserDao
 
