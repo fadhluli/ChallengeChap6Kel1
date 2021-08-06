@@ -27,4 +27,15 @@
     <string name="text_total_wins">%s Wins</string>
     <string name="text_result_game">Result Game</string>
     <string name="text_no_data_message">No Data</string>
+
+    <string name="text_register_success">Register Success!</string>
+    <string name="text_title_toolbar_register">Register Account</string>
+    <string name="error_email_empty">Email Should be Filled</string>
+    <string name="error_password_empty">Password Should be Filled</string>
+    <string name="error_username_empty">Username Should be Filled</string>
+    <string name="error_email_invalid">Email is Invalid</string>
+    <string name="text_hint_email">Email</string>
+    <string name="text_hint_username">Username</string>
+    <string name="text_hint_password">Password</string>
+    <string name="text_btn_register">Register</string>
 </resources>
