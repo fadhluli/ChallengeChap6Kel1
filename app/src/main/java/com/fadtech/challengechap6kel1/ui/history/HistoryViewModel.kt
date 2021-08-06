@@ -11,19 +11,19 @@ import kotlinx.coroutines.launch
 class HistoryViewModel(private val repository: HistoryRepository) : ViewModel(),
     HistoryContract.ViewModel {
 
-    val newsData = MutableLiveData<Resource<List<GetHistoryData>?>>()
+    val historyData = MutableLiveData<Resource<List<GetHistoryData>?>>()
 
     override fun getHistory() {
-        newsData.value = Resource.Loading()
+        historyData.value = Resource.Loading()
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = repository.getHistory()
                 viewModelScope.launch(Dispatchers.Main) {
-                    newsData.value = Resource.Success(response.data)
+                    historyData.value = Resource.Success(response.data)
                 }
             } catch (e: Exception) {
                 viewModelScope.launch(Dispatchers.Main) {
-                    newsData.value = Resource.Error(e.message.orEmpty())
+                    historyData.value = Resource.Error(e.message.orEmpty())
                 }
             }
         }

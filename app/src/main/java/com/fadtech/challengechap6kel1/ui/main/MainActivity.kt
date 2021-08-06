@@ -12,12 +12,18 @@ import com.fadtech.challengechap6kel1.data.constant.Constant
 import com.fadtech.challengechap6kel1.data.local.room.UserRoomDatabase
 import com.fadtech.challengechap6kel1.data.local.room.datasource.UserDataSource
 import com.fadtech.challengechap6kel1.data.model.User
+import com.fadtech.challengechap6kel1.data.network.datasource.HistoryDataSource
+import com.fadtech.challengechap6kel1.data.network.entity.requests.HistoryRequest
+import com.fadtech.challengechap6kel1.data.network.service.HistoryApiServices
 import com.fadtech.challengechap6kel1.databinding.ActivityMainBinding
 import com.fadtech.challengechap6kel1.enum.GameMechanic
+import com.fadtech.challengechap6kel1.preference.SessionPreference
 import com.fadtech.challengechap6kel1.preference.UserPreference
 import com.fadtech.challengechap6kel1.ui.dialog.DialogFragmentListener
 import com.fadtech.challengechap6kel1.ui.dialog.DialogResultFragment
 import com.fadtech.challengechap6kel1.ui.dialog.DialogSettingFragment
+import com.fadtech.challengechap6kel1.ui.history.HistoryRepository
+import com.fadtech.challengechap6kel1.ui.history.HistoryViewModel
 import com.fadtech.challengechap6kel1.ui.ranking.RankingActivity
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -35,6 +41,8 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
     private val TAG = MainActivity::class.java.simpleName
     private lateinit var viewModel: MainViewModel
     private var user: User? = null
+    private var isInsertUserToDb = true
+    private lateinit var sessionPreference: SessionPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -139,7 +147,6 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
                 player2 = 2
                 gamePlay(player1, player2)
             }
-
         }
     }
 
@@ -162,16 +169,15 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
                 } else {
                     DialogResultFragment("COM WINNER").show(supportFragmentManager, null)
                 }
-
                 showPlayerOne()
-
+                insertHistoryToAPI("Opponent Win")
             } else if (playerOne == playerTwo) {
                 Log.d(TAG, "setClickEvent draw")
                 binding.ivImageVs.setImageResource(R.drawable.icon_draw)
                 //Dialog Result for Draw
                 DialogResultFragment("Draw").show(supportFragmentManager, null)
-
                 showPlayerOne()
+                insertHistoryToAPI("Draw")
 
             } else {
                 Log.d(TAG, "setClickEvent User won")
@@ -184,6 +190,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
                     null
                 )
                 showPlayerOne()
+                insertHistoryToAPI("Player Win")
             }
             isGameFinished = true
             setSelectPlayer(playerOne)
@@ -209,7 +216,6 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
             ).show()
         }
     }
-
 
     internal fun resetGame() {
         setSelectPlayer(-1)
@@ -349,37 +355,57 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
         }
     }
 
+    private fun insertHistoryToAPI(result: String) {
+        var mode: String?
+        if (playMode == 0) {
+            mode = "Multiplayer"
+        } else {
+            mode = "Singleplayer"
+        }
+
+        viewModel.insertHistory(
+            HistoryRequest(
+                mode = mode,
+                result = result
+            )
+        )
+    }
+
     // insert user to database
-    private fun insertUserToDb() {
+    fun insertUserToDb() {
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
         val currentDate = sdf.format(Date())
-        if (playMode == 0) {
-            if (totalWinplayer1 > 0) {
-                user = User(
-                    username = UserPreference(this).userNamePlayerOne.orEmpty(),
-                    totalWin = totalWinplayer1,
-                    date = currentDate
-                )
-                user?.let { viewModel.insertUser(it) }
+        if(isInsertUserToDb){
+            if (playMode == 0) {
+                if (totalWinplayer1 > 0) {
+                    user = User(
+                        username = UserPreference(this).userNamePlayerOne.orEmpty(),
+                        totalWin = totalWinplayer1,
+                        date = currentDate
+                    )
+                    user?.let { viewModel.insertUser(it) }
+                }
+                if (totalWinplayer2 > 0) {
+                    user = User(
+                        username = UserPreference(this).userNamePlayerTwo.orEmpty(),
+                        totalWin = totalWinplayer2,
+                        date = currentDate
+                    )
+                    user?.let { viewModel.insertUser(it) }
+                }
+            } else {
+                if (totalWinplayer1 > 0) {
+                    user = User(
+                        username = UserPreference(this).userNamePlayerOne.orEmpty(),
+                        totalWin = totalWinplayer1,
+                        date = currentDate
+                    )
+                    user?.let { viewModel.insertUser(it) }
+                }
             }
-            if (totalWinplayer2 > 0) {
-                user = User(
-                    username = UserPreference(this).userNamePlayerTwo.orEmpty(),
-                    totalWin = totalWinplayer2,
-                    date = currentDate
-                )
-                user?.let { viewModel.insertUser(it) }
-            }
-        } else {
-            if (totalWinplayer1 > 0) {
-                user = User(
-                    username = UserPreference(this).userNamePlayerOne.orEmpty(),
-                    totalWin = totalWinplayer1,
-                    date = currentDate
-                )
-                user?.let { viewModel.insertUser(it) }
-            }
+            isInsertUserToDb = false
         }
+
     }
 
     fun navigateToRankingListActivity() {
@@ -400,12 +426,12 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
 
     override fun onSuccess() {
         //when save data success
-        Toast.makeText(this, "Save todo Success!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Good Game!", Toast.LENGTH_SHORT).show()
     }
 
     override fun onFailed() {
         //when save data failed
-        Toast.makeText(this, "Save todo Failed!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Save Failed!", Toast.LENGTH_SHORT).show()
     }
 
     override fun initView() {
@@ -414,10 +440,21 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
     }
 
     override fun initViewModel() {
-        val dataSource = UserDataSource(UserRoomDatabase.getInstance(this).userDao())
-        val repository = MainRepository(dataSource)
-        viewModel =
-            GenericViewModelFactory(MainViewModel(repository)).create(MainViewModel::class.java)
+
+        sessionPreference = SessionPreference(this)
+        sessionPreference.authToken =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTA5MmI5Y2Q0YTU2ZjAwMTdkYjE0M2QiLCJ1c2VybmFtZSI6ImFmZmFkZGQiLCJlbWFpbCI6ImFmZmFkZGRAZ21haWwuY29tIiwiaWF0IjoxNjI4MTQ3NjcxLCJleHAiOjE2MjgxNTQ4NzF9.yrBHl4-HEIpB_q1KV85Nyi4qRzZ8uVNurpbHcfMmFAw"
+        val apiServices = HistoryApiServices.getInstance(sessionPreference)
+        val userDataSource = UserDataSource(UserRoomDatabase.getInstance(this).userDao())
+        apiServices?.let {
+            val historyDataSource = HistoryDataSource(it)
+            val repository = MainRepository(userDataSource, historyDataSource)
+            viewModel = GenericViewModelFactory(MainViewModel(repository))
+                .create(MainViewModel::class.java)
+        }
+//        val repository = MainRepository(dataSource)
+//        viewModel =
+//            GenericViewModelFactory(MainViewModel(repository)).create(MainViewModel::class.java)
 
         viewModel.transactionResult.observe(this, { isTransactionSuccess ->
             if (isTransactionSuccess) {

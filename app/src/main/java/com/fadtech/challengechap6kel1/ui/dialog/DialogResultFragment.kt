@@ -50,6 +50,7 @@ class DialogResultFragment(private val message: String) : DialogFragment() {
 
         binding.btnReturnMenuDialogResult.setOnClickListener {
             finish()
+            (activity as MainActivity).insertUserToDb()
         }
     }
 

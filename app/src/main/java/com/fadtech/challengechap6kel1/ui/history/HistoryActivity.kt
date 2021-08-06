@@ -88,7 +88,7 @@ class HistoryActivity : AppCompatActivity(), HistoryContract.View {
     override fun initViewModel() {
         sessionPreference = SessionPreference(this)
         sessionPreference.authToken =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTA5MmI5Y2Q0YTU2ZjAwMTdkYjE0M2QiLCJ1c2VybmFtZSI6ImFmZmFkZGQiLCJlbWFpbCI6ImFmZmFkZGRAZ21haWwuY29tIiwiaWF0IjoxNjI4MTM1OTk5LCJleHAiOjE2MjgxNDMxOTl9.iNU7KGjlHu0fii1VUQ9bU79VKl4E_79wl5katriCX_I"
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTA5MmI5Y2Q0YTU2ZjAwMTdkYjE0M2QiLCJ1c2VybmFtZSI6ImFmZmFkZGQiLCJlbWFpbCI6ImFmZmFkZGRAZ21haWwuY29tIiwiaWF0IjoxNjI4MTQ3NjcxLCJleHAiOjE2MjgxNTQ4NzF9.yrBHl4-HEIpB_q1KV85Nyi4qRzZ8uVNurpbHcfMmFAw"
         val apiServices = HistoryApiServices.getInstance(sessionPreference)
         apiServices?.let {
             val dataSource = HistoryDataSource(it)
@@ -96,7 +96,7 @@ class HistoryActivity : AppCompatActivity(), HistoryContract.View {
             viewModel = GenericViewModelFactory(HistoryViewModel(repository))
                 .create(HistoryViewModel::class.java)
         }
-        viewModel.newsData.observe(this, {
+        viewModel.historyData.observe(this, {
             when (it) {
                 is Resource.Loading -> {
                     setLoadingStatus(true)
