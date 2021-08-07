@@ -1,33 +1,33 @@
 package com.fadtech.challengechap6kel1.ui.login
-
-
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.fadtech.challengechap6kel1.data.local.sharepreference.SessionPreference
-//import com.fadtech.challengechap6kel1.ui.register.RegisterActivity
 import com.fadtech.challengechap6kel1.utils.StringUtils
 import com.fadtech.challengechap6kel1.R
 import com.fadtech.challengechap6kel1.base.GenericViewModelFactory
 import com.fadtech.challengechap6kel1.base.Resource
 import com.fadtech.challengechap6kel1.data.network.datasource.BinarDataSource
-import com.fadtech.challengechap6kel1.data.network.entity.request.authentification.LoginRequest
+import com.fadtech.challengechap6kel1.data.network.entity.requests.authentication.LoginRequest
 import com.fadtech.challengechap6kel1.data.network.services.BinarApiServices
 import com.fadtech.challengechap6kel1.databinding.ActivityLoginBinding
-import com.fadtech.challengechap6kel1.ui.landingpage.LandingPageActivity
+import com.fadtech.challengechap6kel1.preference.SessionPreference
+import com.fadtech.challengechap6kel1.preference.UserPreference
 import com.fadtech.challengechap6kel1.ui.menu.MenuActivity
+import com.fadtech.challengechap6kel1.ui.register.RegisterActivity
 
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
     private lateinit var sessionPreference: SessionPreference
+    private lateinit var userPreference: UserPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
+        supportActionBar?.hide()
         setContentView(binding.root)
         initView()
     }
@@ -45,6 +45,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
                         password = binding.etPassword.text.toString()
                     )
                 )
+
             }
         }
         binding.llRegister.setOnClickListener {
@@ -60,7 +61,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun navigateToRegister() {
-//        val intent = Intent(this, RegisterActivity::class.java)
+        val intent = Intent(this, RegisterActivity::class.java)
         startActivity(intent)
     }
 
@@ -107,6 +108,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     override fun initViewModel() {
         sessionPreference = SessionPreference(this)
+        userPreference = UserPreference(this)
         val apiService = BinarApiServices.getInstance(sessionPreference)
         apiService?.let {
             val dataSource = BinarDataSource(it)
@@ -125,6 +127,9 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
                     response.data?.token?.let {
                         saveSessionLogin(it)
                     }
+                    response.data?.username?.let {
+                        saveUsername(it)
+                    }
                     navigateToHome()
                 }
                 is Resource.Error -> {
@@ -138,4 +143,9 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     override fun saveSessionLogin(authToken : String) {
         sessionPreference.authToken = authToken
     }
+
+    override fun saveUsername(username: String) {
+        userPreference.userNamePlayerOne = username
+    }
+
 }

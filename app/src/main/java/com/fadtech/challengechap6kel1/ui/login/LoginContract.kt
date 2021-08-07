@@ -2,7 +2,7 @@ package com.fadtech.challengechap6kel1.ui.login
 
 
 import com.fadtech.challengechap6kel1.base.BaseContract
-import com.fadtech.challengechap6kel1.data.network.entity.request.authentification.LoginRequest
+import com.fadtech.challengechap6kel1.data.network.entity.requests.authentication.LoginRequest
 
 
 interface LoginContract {
@@ -17,5 +17,6 @@ interface LoginContract {
         fun setLoadingState(isLoadingVisible: Boolean)
         fun checkFormValidation() : Boolean
         fun saveSessionLogin(authToken : String)
+        fun saveUsername(username : String)
     }
 }

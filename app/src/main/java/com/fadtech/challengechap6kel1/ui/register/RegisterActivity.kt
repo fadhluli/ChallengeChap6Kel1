@@ -9,13 +9,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.fadtech.challengechap6kel1.R
 import com.fadtech.challengechap6kel1.base.GenericViewModelFactory
 import com.fadtech.challengechap6kel1.base.Resource
-import com.fadtech.challengechap6kel1.data.local.sharepreference.SessionPreference
 import com.fadtech.challengechap6kel1.data.network.datasource.BinarDataSource
-import com.fadtech.challengechap6kel1.data.network.entity.request.authentification.RegisterRequest
+import com.fadtech.challengechap6kel1.data.network.entity.requests.authentication.RegisterRequest
 import com.fadtech.challengechap6kel1.data.network.services.BinarApiServices
 import com.fadtech.challengechap6kel1.databinding.ActivityRegisterBinding
+import com.fadtech.challengechap6kel1.preference.SessionPreference
+import com.fadtech.challengechap6kel1.ui.login.LoginActivity
 import com.fadtech.challengechap6kel1.utils.StringUtils
-import java.util.function.ToDoubleBiFunction
 
 class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     private val TAG = RegisterActivity::class.java.simpleName
@@ -27,6 +27,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
         initView()
     }
 
@@ -88,7 +89,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     }
 
     override fun navigateToLogin() {
-        val intent = Intent(this, TODO("isiLOGIBnActivity")::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
         finish()
@@ -121,8 +122,9 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
                 }
                 is Resource.Error -> {
                     setLoadingState(false)
-                    Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
-                    navigateToLogin()
+                    Toast.makeText(this,
+                        getString(R.string.text_warning_email_or_username_registered),
+                        Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -130,7 +132,7 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
 
     override fun setOnClick() {
         binding.btnRegister.setOnClickListener {
-            if(checkFormValidation()){
+            if (checkFormValidation()) {
                 viewModel.registerUser(
                     RegisterRequest(
                         email = binding.etEmail.text.toString(),
@@ -140,5 +142,13 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
                 )
             }
         }
+
+        binding.ivReset.setOnClickListener {
+            onBackPressed()
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

@@ -10,9 +10,9 @@ import androidx.lifecycle.lifecycleScope
 import com.fadtech.challengechap6kel1.R
 import com.fadtech.challengechap6kel1.base.GenericViewModelFactory
 import com.fadtech.challengechap6kel1.base.Resource
-import com.fadtech.challengechap6kel1.data.local.sharepreference.SessionPreference
 import com.fadtech.challengechap6kel1.data.network.datasource.BinarDataSource
 import com.fadtech.challengechap6kel1.data.network.services.BinarApiServices
+import com.fadtech.challengechap6kel1.preference.SessionPreference
 import com.fadtech.challengechap6kel1.ui.landingpage.LandingPageActivity
 import com.fadtech.challengechap6kel1.ui.login.LoginActivity
 import com.fadtech.challengechap6kel1.ui.menu.MenuActivity

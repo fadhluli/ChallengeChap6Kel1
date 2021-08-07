@@ -14,22 +14,31 @@ class UserPreference(var context: Context) {
         private val PREF_USER_NAME_PLAYER_TWO = Pair("IS_USER_NAME2", null)
     }
 
-    var userNamePlayerOne : String?
-        get() = preference.getString(PREF_USER_NAME_PLAYER_ONE.first, PREF_USER_NAME_PLAYER_ONE.second)
+    var userNamePlayerOne: String?
+        get() = preference.getString(PREF_USER_NAME_PLAYER_ONE.first,
+            PREF_USER_NAME_PLAYER_ONE.second)
         set(value) = preference.edit {
             it.putString(PREF_USER_NAME_PLAYER_ONE.first, value)
         }
 
-    var userNamePlayerTwo : String?
-        get() = preference.getString(PREF_USER_NAME_PLAYER_TWO.first, PREF_USER_NAME_PLAYER_TWO.second)
+    var userNamePlayerTwo: String?
+        get() = preference.getString(PREF_USER_NAME_PLAYER_TWO.first,
+            PREF_USER_NAME_PLAYER_TWO.second)
         set(value) = preference.edit {
             it.putString(PREF_USER_NAME_PLAYER_TWO.first, value)
         }
 
+    fun deleteSession() {
+        preference.delete()
+    }
 }
 
 private inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {
     val editor = edit()
     operation(editor)
     editor.apply()
+}
+
+private fun SharedPreferences.delete() {
+    edit().clear().apply()
 }

@@ -14,7 +14,7 @@ import com.fadtech.challengechap6kel1.data.local.room.datasource.UserDataSource
 import com.fadtech.challengechap6kel1.data.model.User
 import com.fadtech.challengechap6kel1.data.network.datasource.HistoryDataSource
 import com.fadtech.challengechap6kel1.data.network.entity.requests.HistoryRequest
-import com.fadtech.challengechap6kel1.data.network.service.HistoryApiServices
+import com.fadtech.challengechap6kel1.data.network.services.HistoryApiServices
 import com.fadtech.challengechap6kel1.databinding.ActivityMainBinding
 import com.fadtech.challengechap6kel1.enum.GameMechanic
 import com.fadtech.challengechap6kel1.preference.SessionPreference
@@ -22,11 +22,8 @@ import com.fadtech.challengechap6kel1.preference.UserPreference
 import com.fadtech.challengechap6kel1.ui.dialog.DialogFragmentListener
 import com.fadtech.challengechap6kel1.ui.dialog.DialogResultFragment
 import com.fadtech.challengechap6kel1.ui.dialog.DialogSettingFragment
-import com.fadtech.challengechap6kel1.ui.history.HistoryRepository
-import com.fadtech.challengechap6kel1.ui.history.HistoryViewModel
 import com.fadtech.challengechap6kel1.ui.ranking.RankingActivity
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 import kotlin.random.Random
 

@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fadtech.challengechap6kel1.base.Resource
-import com.fadtech.challengechap6kel1.data.network.entity.responses.authentification.UserResponse
+import com.fadtech.challengechap6kel1.data.network.entity.responses.authentication.UserResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

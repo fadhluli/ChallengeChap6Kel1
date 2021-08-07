@@ -17,6 +17,7 @@
         <activity android:name=".ui.menu.InputNamePlayerTwoActivity" /> <!-- <activity android:name=".ui.menu.MenuActivity" /> -->
         <activity android:name=".ui.ranking.RankingActivity" />
         <activity android:name=".ui.main.MainActivity" />
+        <activity android:name=".ui.register.RegisterActivity" />
         <activity
             android:name=".ui.landingpage.LandingPageActivity"
             android:windowSoftInputMode="adjustPan" />

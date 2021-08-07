@@ -19,6 +19,10 @@ class SessionPreference(var context: Context) {
             it.putString(PREF_AUTH_TOKEN.first, value)
         }
 
+
+    fun deleteSession() {
+        preference.delete()
+    }
 }
 
 private inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {

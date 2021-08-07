@@ -31,7 +31,6 @@
     <string name="text_btn_login">Login</string>
     <string name="text_login_success">Your Login Success !</string>
     <string name="text_title_toolbar_login">Login</string>
-    <string name="text_register_success">Register Success!</string>
     <string name="text_title_toolbar_register">Register Account</string>
     <string name="error_email_empty">Email Should be Filled</string>
     <string name="error_password_empty">Password Should be Filled</string>
@@ -42,17 +41,6 @@
     <string name="text_hint_password">Password</string>
     <string name="text_btn_register">Register</string>
     <string name="text_create_register">Register</string>
-
-
-
     <string name="text_register_success">Register Success!</string>
-    <string name="text_title_toolbar_register">Register Account</string>
-    <string name="error_email_empty">Email Should be Filled</string>
-    <string name="error_password_empty">Password Should be Filled</string>
-    <string name="error_username_empty">Username Should be Filled</string>
-    <string name="error_email_invalid">Email is Invalid</string>
-    <string name="text_hint_email">Email</string>
-    <string name="text_hint_username">Username</string>
-    <string name="text_hint_password">Password</string>
-    <string name="text_btn_register">Register</string>
+    <string name="text_warning_email_or_username_registered">Email or username is already registered</string>
 </resources>

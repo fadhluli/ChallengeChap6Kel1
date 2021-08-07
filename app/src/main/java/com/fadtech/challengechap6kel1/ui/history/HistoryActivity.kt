@@ -10,9 +10,10 @@ import com.fadtech.challengechap6kel1.base.GenericViewModelFactory
 import com.fadtech.challengechap6kel1.base.Resource
 import com.fadtech.challengechap6kel1.data.network.datasource.HistoryDataSource
 import com.fadtech.challengechap6kel1.data.network.entity.responses.History.GetHistoryData
-import com.fadtech.challengechap6kel1.data.network.service.HistoryApiServices
+import com.fadtech.challengechap6kel1.data.network.services.HistoryApiServices
 import com.fadtech.challengechap6kel1.databinding.ActivityHistoryBinding
 import com.fadtech.challengechap6kel1.preference.SessionPreference
+import com.fadtech.challengechap6kel1.preference.UserPreference
 
 class HistoryActivity : AppCompatActivity(), HistoryContract.View {
 
@@ -87,8 +88,6 @@ class HistoryActivity : AppCompatActivity(), HistoryContract.View {
 
     override fun initViewModel() {
         sessionPreference = SessionPreference(this)
-        sessionPreference.authToken =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTA5MmI5Y2Q0YTU2ZjAwMTdkYjE0M2QiLCJ1c2VybmFtZSI6ImFmZmFkZGQiLCJlbWFpbCI6ImFmZmFkZGRAZ21haWwuY29tIiwiaWF0IjoxNjI4MTQ3NjcxLCJleHAiOjE2MjgxNTQ4NzF9.yrBHl4-HEIpB_q1KV85Nyi4qRzZ8uVNurpbHcfMmFAw"
         val apiServices = HistoryApiServices.getInstance(sessionPreference)
         apiServices?.let {
             val dataSource = HistoryDataSource(it)
