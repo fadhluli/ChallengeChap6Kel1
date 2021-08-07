@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.fadtech.challengechap6kel1.data.local.sharepreference.SessionPreference
-import com.fadtech.challengechap6kel1.ui.register.RegisterActivity
+//import com.fadtech.challengechap6kel1.ui.register.RegisterActivity
 import com.fadtech.challengechap6kel1.utils.StringUtils
 import com.fadtech.challengechap6kel1.R
 import com.fadtech.challengechap6kel1.base.GenericViewModelFactory
@@ -17,6 +17,7 @@ import com.fadtech.challengechap6kel1.data.network.entity.request.authentificati
 import com.fadtech.challengechap6kel1.data.network.services.BinarApiServices
 import com.fadtech.challengechap6kel1.databinding.ActivityLoginBinding
 import com.fadtech.challengechap6kel1.ui.landingpage.LandingPageActivity
+import com.fadtech.challengechap6kel1.ui.menu.MenuActivity
 
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
@@ -52,14 +53,14 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun navigateToHome() {
-        val intent = Intent(this, LandingPageActivity::class.java)
+        val intent = Intent(this, MenuActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
         finish()
     }
 
     override fun navigateToRegister() {
-        val intent = Intent(this, RegisterActivity::class.java)
+//        val intent = Intent(this, RegisterActivity::class.java)
         startActivity(intent)
     }
 
