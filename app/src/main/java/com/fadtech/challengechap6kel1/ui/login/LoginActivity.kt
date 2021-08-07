@@ -6,18 +6,17 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.fadtech.challengechap6kel1.data.local.sharepreference.SessionPreference
-import com.fadtech.challengechap6kel1.ui.register.RegisterActivity
-import com.fadtech.challengechap6kel1.utils.StringUtils
 import com.fadtech.challengechap6kel1.R
 import com.fadtech.challengechap6kel1.base.GenericViewModelFactory
 import com.fadtech.challengechap6kel1.base.Resource
 import com.fadtech.challengechap6kel1.data.network.datasource.BinarDataSource
-import com.fadtech.challengechap6kel1.data.network.entity.request.authentification.LoginRequest
 import com.fadtech.challengechap6kel1.data.network.services.BinarApiServices
 import com.fadtech.challengechap6kel1.databinding.ActivityLoginBinding
+import com.fadtech.challengechap6kel1.ui.register.RegisterActivity
+import com.fadtech.challengechap6kel1.data.local.sharepreference.SessionPreference
+import com.fadtech.challengechap6kel1.data.network.entity.request.authentification.LoginRequest
 import com.fadtech.challengechap6kel1.ui.landingpage.LandingPageActivity
-
+import com.fadtech.challengechap6kel1.utils.StringUtils
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
     private lateinit var binding: ActivityLoginBinding
@@ -46,7 +45,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
                 )
             }
         }
-        binding.llRegister.setOnClickListener {
+        binding.btnNavigateRegister.setOnClickListener {
             navigateToRegister()
         }
     }
@@ -128,7 +127,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
                 }
                 is Resource.Error -> {
                     setLoadingState(false)
-                    Toast.makeText(this,"Your email and password wrong, please check again", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Login Failed, Please check email and password correctly", Toast.LENGTH_SHORT).show()
                 }
             }
         })

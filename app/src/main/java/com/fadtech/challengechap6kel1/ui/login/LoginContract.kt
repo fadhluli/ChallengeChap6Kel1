@@ -4,7 +4,6 @@ package com.fadtech.challengechap6kel1.ui.login
 import com.fadtech.challengechap6kel1.base.BaseContract
 import com.fadtech.challengechap6kel1.data.network.entity.request.authentification.LoginRequest
 
-
 interface LoginContract {
     interface ViewModel : BaseContract.ViewModel{
         fun loginUser(loginRequest: LoginRequest)

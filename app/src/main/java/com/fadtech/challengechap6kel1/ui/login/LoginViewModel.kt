@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fadtech.challengechap6kel1.base.Resource
 import com.fadtech.challengechap6kel1.data.network.entity.request.authentification.LoginRequest
-import com.catnip.covidapp.data.network.entity.responses.authentification.LoginResponse
+import com.fadtech.challengechap6kel1.data.network.entity.responses.authentification.LoginResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

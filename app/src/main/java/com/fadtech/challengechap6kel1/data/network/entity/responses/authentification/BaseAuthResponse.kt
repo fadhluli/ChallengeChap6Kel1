@@ -1,4 +1,4 @@
-package com.catnip.covidapp.data.network.entity.responses.authentification
+package com.fadtech.challengechap6kel1.data.network.entity.responses.authentification
 
 import com.google.gson.annotations.SerializedName
 
