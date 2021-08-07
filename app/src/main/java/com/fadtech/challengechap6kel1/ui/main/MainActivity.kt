@@ -437,10 +437,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
     }
 
     override fun initViewModel() {
-
         sessionPreference = SessionPreference(this)
-        sessionPreference.authToken =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTA5MmI5Y2Q0YTU2ZjAwMTdkYjE0M2QiLCJ1c2VybmFtZSI6ImFmZmFkZGQiLCJlbWFpbCI6ImFmZmFkZGRAZ21haWwuY29tIiwiaWF0IjoxNjI4MTQ3NjcxLCJleHAiOjE2MjgxNTQ4NzF9.yrBHl4-HEIpB_q1KV85Nyi4qRzZ8uVNurpbHcfMmFAw"
         val apiServices = HistoryApiServices.getInstance(sessionPreference)
         val userDataSource = UserDataSource(UserRoomDatabase.getInstance(this).userDao())
         apiServices?.let {
