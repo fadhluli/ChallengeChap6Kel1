@@ -18,4 +18,7 @@ data class User(
     @ColumnInfo(name = "total_win")
     var totalWin: Int = 0,
 
+    @ColumnInfo(name = "date")
+    var date: String?,
+
 ): Parcelable

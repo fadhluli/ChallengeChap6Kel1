@@ -12,15 +12,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChallengeChap6Kel1">
-        <activity android:name=".ui.splashscreen.SplashScreenActivity" >
+        <activity android:name=".ui.splashscreen.SplashScreenActivity" ></activity>
+        <activity android:name=".ui.register.RegisterActivity" />
+        <activity android:name=".ui.login.LoginActivity" />
+        <activity android:name=".ui.history.HistoryActivity"/>
+        <activity android:name=".ui.menu.MenuActivity" />
+        <activity android:name=".ui.menu.InputNamePlayerTwoActivity" /> <!-- <activity android:name=".ui.menu.MenuActivity" /> -->
+        <activity android:name=".ui.ranking.RankingActivity" />
+        <activity android:name=".ui.main.MainActivity" />
+        <activity
+            android:name=".ui.landingpage.LandingPageActivity"
+            android:windowSoftInputMode="adjustPan" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.register.RegisterActivity" />
-        <activity android:name=".ui.login.LoginActivity" />
-        <activity android:name=".ui.landingpage.LandingPageActivity" />
     </application>
 
 </manifest>

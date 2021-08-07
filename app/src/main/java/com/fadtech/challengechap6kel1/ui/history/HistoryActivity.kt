@@ -1,29 +1,29 @@
-package com.fadtech.challengechap6kel1.ui.ranking
+package com.fadtech.challengechap6kel1.ui.history
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fadtech.challengechap6kel1.R
 import com.fadtech.challengechap6kel1.base.GenericViewModelFactory
 import com.fadtech.challengechap6kel1.base.Resource
-import com.fadtech.challengechap6kel1.data.local.room.UserRoomDatabase
-import com.fadtech.challengechap6kel1.data.local.room.datasource.UserDataSource
-import com.fadtech.challengechap6kel1.data.model.User
-import com.fadtech.challengechap6kel1.databinding.ActivityRankingBinding
-import com.fadtech.challengechap6kel1.ui.main.MainRepository
-import com.fadtech.challengechap6kel1.ui.main.MainViewModel
+import com.fadtech.challengechap6kel1.data.network.datasource.HistoryDataSource
+import com.fadtech.challengechap6kel1.data.network.entity.responses.History.GetHistoryData
+import com.fadtech.challengechap6kel1.data.network.service.HistoryApiServices
+import com.fadtech.challengechap6kel1.databinding.ActivityHistoryBinding
+import com.fadtech.challengechap6kel1.preference.SessionPreference
 
-class RankingActivity : AppCompatActivity(), RankingContract.View {
+class HistoryActivity : AppCompatActivity(), HistoryContract.View {
 
-    private lateinit var binding: ActivityRankingBinding
-    private lateinit var rankingAdapter: RankingAdapter
-    private lateinit var viewModel: RankingViewModel
+    private lateinit var binding: ActivityHistoryBinding
+    private lateinit var viewModel: HistoryViewModel
+    private lateinit var historyAdapter: HistoryAdapter
+    private lateinit var sessionPreference: SessionPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRankingBinding.inflate(layoutInflater)
+        binding = ActivityHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initView()
         onCloseClick()
@@ -35,9 +35,13 @@ class RankingActivity : AppCompatActivity(), RankingContract.View {
             finish()
         }
     }
-
     override fun getData() {
-        viewModel.getUserRankingList()
+        viewModel.getHistory()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 
     override fun onResume() {
@@ -45,9 +49,9 @@ class RankingActivity : AppCompatActivity(), RankingContract.View {
         getData()
     }
 
-    override fun onDataSuccess(users: List<User>) {
-        users.let {
-            rankingAdapter.items = it
+    override fun onDataSuccess(data: List<GetHistoryData>) {
+        data.let {
+            historyAdapter.items = it
         }
     }
 
@@ -56,7 +60,7 @@ class RankingActivity : AppCompatActivity(), RankingContract.View {
     }
 
     override fun onDataEmpty() {
-        rankingAdapter.items = mutableListOf()
+        historyAdapter.items = mutableListOf()
     }
 
     override fun setLoadingStatus(isLoading: Boolean) {
@@ -69,10 +73,10 @@ class RankingActivity : AppCompatActivity(), RankingContract.View {
     }
 
     override fun initList() {
-        rankingAdapter = RankingAdapter()
-        binding.rvRanking.apply {
+        historyAdapter = HistoryAdapter()
+        binding.rvHistory.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = rankingAdapter
+            adapter = historyAdapter
         }
     }
 
@@ -82,12 +86,17 @@ class RankingActivity : AppCompatActivity(), RankingContract.View {
     }
 
     override fun initViewModel() {
-        val dataSource = UserDataSource(UserRoomDatabase.getInstance(this).userDao())
-        val repository = RankingRepository(dataSource)
-        viewModel =
-            GenericViewModelFactory(RankingViewModel(repository)).create(RankingViewModel::class.java)
-
-        viewModel.rankingData.observe(this, {
+        sessionPreference = SessionPreference(this)
+        sessionPreference.authToken =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTA5MmI5Y2Q0YTU2ZjAwMTdkYjE0M2QiLCJ1c2VybmFtZSI6ImFmZmFkZGQiLCJlbWFpbCI6ImFmZmFkZGRAZ21haWwuY29tIiwiaWF0IjoxNjI4MTQ3NjcxLCJleHAiOjE2MjgxNTQ4NzF9.yrBHl4-HEIpB_q1KV85Nyi4qRzZ8uVNurpbHcfMmFAw"
+        val apiServices = HistoryApiServices.getInstance(sessionPreference)
+        apiServices?.let {
+            val dataSource = HistoryDataSource(it)
+            val repository = HistoryRepository(dataSource)
+            viewModel = GenericViewModelFactory(HistoryViewModel(repository))
+                .create(HistoryViewModel::class.java)
+        }
+        viewModel.historyData.observe(this, {
             when (it) {
                 is Resource.Loading -> {
                     setLoadingStatus(true)
@@ -111,6 +120,6 @@ class RankingActivity : AppCompatActivity(), RankingContract.View {
                 }
             }
         })
+        viewModel.getHistory()
     }
-
 }
