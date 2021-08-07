@@ -1,13 +1,11 @@
 package com.fadtech.challengechap6kel1.data.network.services
 
+import BaseAuthResponse
 import com.fadtech.challengechap6kel1.BuildConfig
 import com.fadtech.challengechap6kel1.data.local.sharepreference.SessionPreference
-import com.catnip.covidapp.data.network.entity.responses.authentification.BaseAuthResponse
 import com.catnip.covidapp.data.network.entity.responses.authentification.LoginResponse
-import com.catnip.covidapp.data.network.entity.responses.authentification.UserResponse
 import com.fadtech.challengechap6kel1.data.network.entity.request.authentification.LoginRequest
 import com.fadtech.challengechap6kel1.data.network.entity.request.authentification.RegisterRequest
-import com.fadtech.challengechap6kel1.data.network.entity.responses.authentification.BaseAuthResponse
 import com.fadtech.challengechap6kel1.data.network.entity.responses.authentification.UserResponse
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
