@@ -4,6 +4,9 @@ interface BaseContract {
     interface ViewModel {
 //        fun onDestroy()
     }
+    interface ViewModel{
+
+    }
 
     interface BaseView {
         fun initView()
