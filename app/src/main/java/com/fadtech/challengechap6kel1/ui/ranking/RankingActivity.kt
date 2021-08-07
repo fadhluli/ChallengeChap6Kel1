@@ -6,16 +6,20 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fadtech.challengechap6kel1.R
+import com.fadtech.challengechap6kel1.base.GenericViewModelFactory
+import com.fadtech.challengechap6kel1.base.Resource
 import com.fadtech.challengechap6kel1.data.local.room.UserRoomDatabase
 import com.fadtech.challengechap6kel1.data.local.room.datasource.UserDataSource
 import com.fadtech.challengechap6kel1.data.model.User
 import com.fadtech.challengechap6kel1.databinding.ActivityRankingBinding
+import com.fadtech.challengechap6kel1.ui.main.MainRepository
+import com.fadtech.challengechap6kel1.ui.main.MainViewModel
 
 class RankingActivity : AppCompatActivity(), RankingContract.View {
 
     private lateinit var binding: ActivityRankingBinding
     private lateinit var rankingAdapter: RankingAdapter
-    private lateinit var presenter: RankingContract.Presenter
+    private lateinit var viewModel: RankingViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,14 +30,14 @@ class RankingActivity : AppCompatActivity(), RankingContract.View {
         supportActionBar?.hide()
     }
 
-    private fun onCloseClick(){
+    private fun onCloseClick() {
         binding.ivClose.setOnClickListener {
             finish()
         }
     }
 
     override fun getData() {
-        presenter.getUserRankingList()
+        viewModel.getUserRankingList()
     }
 
     override fun onResume() {
@@ -73,9 +77,40 @@ class RankingActivity : AppCompatActivity(), RankingContract.View {
     }
 
     override fun initView() {
-        val dataSource = UserDataSource(UserRoomDatabase.getInstance(this).userDao())
-        presenter = RankingPresenter(dataSource, this)
+        initViewModel()
         initList()
+    }
+
+    override fun initViewModel() {
+        val dataSource = UserDataSource(UserRoomDatabase.getInstance(this).userDao())
+        val repository = RankingRepository(dataSource)
+        viewModel =
+            GenericViewModelFactory(RankingViewModel(repository)).create(RankingViewModel::class.java)
+
+        viewModel.rankingData.observe(this, {
+            when (it) {
+                is Resource.Loading -> {
+                    setLoadingStatus(true)
+                    setEmptyStateVisibility(false)
+                }
+                is Resource.Success -> {
+                    setLoadingStatus(false)
+                    it.data?.let { data ->
+                        if (data.isNullOrEmpty()) {
+                            onDataEmpty()
+                            setEmptyStateVisibility(true)
+                        } else {
+                            onDataSuccess(data)
+                        }
+                    }
+                }
+                is Resource.Error -> {
+                    setLoadingStatus(false)
+                    setEmptyStateVisibility(false)
+                    onDataFailed(it.message.orEmpty())
+                }
+            }
+        })
     }
 
 }

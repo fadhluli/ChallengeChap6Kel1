@@ -2,6 +2,10 @@ package com.fadtech.challengechap6kel1.data.network.services
 
 import com.fadtech.challengechap6kel1.BuildConfig
 import com.fadtech.challengechap6kel1.data.local.sharepreference.SessionPreference
+import com.catnip.covidapp.data.network.entity.responses.authentification.BaseAuthResponse
+import com.catnip.covidapp.data.network.entity.responses.authentification.LoginResponse
+import com.catnip.covidapp.data.network.entity.responses.authentification.UserResponse
+import com.fadtech.challengechap6kel1.data.network.entity.request.authentification.LoginRequest
 import com.fadtech.challengechap6kel1.data.network.entity.request.authentification.RegisterRequest
 import com.fadtech.challengechap6kel1.data.network.entity.responses.authentification.BaseAuthResponse
 import com.fadtech.challengechap6kel1.data.network.entity.responses.authentification.UserResponse
@@ -20,6 +24,11 @@ interface BinarApiServices {
 
     @POST("api/v1/auth/register")
     suspend fun postRegisterData(@Body registerRequest: RegisterRequest) : BaseAuthResponse<UserResponse, String>
+    @POST("api/v1/auth/login")
+    suspend fun postLoginData(@Body loginRequest: LoginRequest) : BaseAuthResponse<LoginResponse, String>
+
+    /*@POST("api/v1/auth/register")
+    suspend fun postRegisterData(@Body registerRequest: RegisterRequest) : BaseAuthResponse<UserResponse,String> */
 
     @GET("api/v1/auth/me")
     suspend fun getSyncData() : BaseAuthResponse<UserResponse,String>
@@ -56,4 +65,5 @@ interface BinarApiServices {
             return retrofitServices
         }
     }
+
 }

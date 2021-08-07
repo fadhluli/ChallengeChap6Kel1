@@ -42,6 +42,7 @@ class DialogSettingFragment() : DialogFragment() {
             val intent = Intent(context, MenuActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
+            (activity as MainActivity).insertUserToDb()
         }
 
     }

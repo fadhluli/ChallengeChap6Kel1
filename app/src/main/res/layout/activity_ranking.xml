@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.ranking.RankingActivity">
 
-
     <ImageView
         android:id="@+id/iv_header_ranking"
         android:layout_width="wrap_content"
@@ -19,13 +18,13 @@
 
     <ImageView
         android:id="@+id/iv_close"
-        android:layout_width="@dimen/_40sdp"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:src="@drawable/icon_close_ranking"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_header_ranking" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_ranking"
@@ -34,7 +33,7 @@
         android:clipToPadding="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_close"
+        app:layout_constraintTop_toBottomOf="@id/iv_header_ranking"
         tools:listitem="@layout/ranking_list" />
 
     <TextView
@@ -59,6 +58,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_header_ranking" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

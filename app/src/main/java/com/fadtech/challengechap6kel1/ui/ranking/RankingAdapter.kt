@@ -26,6 +26,7 @@ class RankingAdapter: RecyclerView.Adapter<RankingAdapter.RankingViewHolder>() {
                     totalWin.toString()
                 )
                 binding.tvRanking.text = (position + 1).toString()
+                binding.tvDate.text = date
             }
         }
     }

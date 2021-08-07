@@ -1,5 +1,6 @@
 package com.fadtech.challengechap6kel1.ui.landingpage
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,8 @@ import com.fadtech.challengechap6kel1.ui.landingpage.adapter.ViewPagerAdapter
 import com.fadtech.challengechap6kel1.ui.landingpage.fragment.LandingPage1Fragment
 import com.fadtech.challengechap6kel1.ui.landingpage.fragment.LandingPage2Fragment
 import com.fadtech.challengechap6kel1.ui.landingpage.fragment.LandingPage3Fragment
+import com.fadtech.challengechap6kel1.ui.login.LoginActivity
+import com.fadtech.challengechap6kel1.ui.menu.MenuActivity
 
 class LandingPageActivity : AppCompatActivity() {
 
@@ -31,9 +34,9 @@ class LandingPageActivity : AppCompatActivity() {
         viewPagerAdapter.addFragment(
             LandingPage2Fragment()
         )
-        viewPagerAdapter.addFragment(
-            LandingPage3Fragment()
-        )
+//        viewPagerAdapter.addFragment(
+//            LandingPage3Fragment()
+//        )
         binding.viewPager.apply {
             adapter = viewPagerAdapter
         }
@@ -48,10 +51,10 @@ class LandingPageActivity : AppCompatActivity() {
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                if (position == 2) {
-                    ivBtnNext.visibility = View.GONE
-                    circleIndicator.visibility = View.GONE
-
+                if (position == 1) {
+                    ivBtnNext.visibility = View.VISIBLE
+                    circleIndicator.visibility = View.VISIBLE
+                    navigateToLogin()
                 } else {
                     ivBtnNext.visibility = View.VISIBLE
                     circleIndicator.visibility = View.VISIBLE
@@ -68,6 +71,14 @@ class LandingPageActivity : AppCompatActivity() {
                 fakeDragBy(-10f)
                 endFakeDrag()
             }
+        }
+    }
+
+    private fun navigateToLogin() {
+        binding.ivBtnNext.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
     }
 }
