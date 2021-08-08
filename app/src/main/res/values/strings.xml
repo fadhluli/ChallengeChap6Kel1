@@ -43,4 +43,12 @@
     <string name="text_create_register">Register</string>
     <string name="text_register_success">Register Success!</string>
     <string name="text_warning_email_or_username_registered">Email or username is already registered</string>
+    <string name="text_update_success">Update Success</string>
+    <string name="text_logout_dialog">Want to Logout from the Game?</string>
+    <string name="text_dialog_logout_task_positive">Yes!</string>
+    <string name="text_dialog_logout_task_negative">No!</string>
+    <string name="text_btn_logout">log out</string>
+    <string name="text_btn_profile">profile</string>
+    <string name="text_btn_exit">x</string>
+    <string name="text_title_profile">Profile</string>
 </resources>
