@@ -3,7 +3,7 @@ package com.fadtech.challengechap6kel1.ui.ranking
 import com.fadtech.challengechap6kel1.base.BaseContract
 import com.fadtech.challengechap6kel1.data.model.User
 
-interface RankingListContract {
+interface RankingContract {
     interface View : BaseContract.BaseView{
         //getting data from presenter
         fun getData()
@@ -21,7 +21,12 @@ interface RankingListContract {
         fun initList()
 
     }
-    interface Presenter : BaseContract.BasePresenter{
+
+//    interface Presenter : BaseContract.BasePresenter{
+//        fun getUserRankingList()
+//    }
+
+    interface ViewModel{
         fun getUserRankingList()
     }
 }

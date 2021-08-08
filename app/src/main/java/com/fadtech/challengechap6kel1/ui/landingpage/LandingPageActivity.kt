@@ -1,18 +1,14 @@
 package com.fadtech.challengechap6kel1.ui.landingpage
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
-import com.fadtech.challengechap6kel1.R
 import com.fadtech.challengechap6kel1.databinding.ActivityLandingPageBinding
-import com.fadtech.challengechap6kel1.databinding.FragmentLandingPage3Binding
 import com.fadtech.challengechap6kel1.ui.landingpage.adapter.ViewPagerAdapter
 import com.fadtech.challengechap6kel1.ui.landingpage.fragment.LandingPage1Fragment
 import com.fadtech.challengechap6kel1.ui.landingpage.fragment.LandingPage2Fragment
-import me.relex.circleindicator.CircleIndicator
-import com.fadtech.challengechap6kel1.ui.landingpage.fragment.LandingPage3Fragment as LandingPage3Fragment
+import com.fadtech.challengechap6kel1.ui.landingpage.fragment.LandingPage3Fragment
 
 class LandingPageActivity : AppCompatActivity() {
 

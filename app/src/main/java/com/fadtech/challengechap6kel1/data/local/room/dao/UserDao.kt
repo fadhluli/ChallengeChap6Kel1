@@ -1,6 +1,9 @@
 package com.fadtech.challengechap6kel1.data.local.room.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.fadtech.challengechap6kel1.data.model.User
 
 @Dao

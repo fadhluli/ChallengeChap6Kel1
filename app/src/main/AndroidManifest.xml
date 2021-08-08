@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChallengeChap6Kel1">
-        <activity android:name=".ui.menu.MenuActivity" />
+        <activity android:name=".ui.menu.MenuActivity" android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout" />
         <activity android:name=".ui.menu.InputNamePlayerTwoActivity"/>
         <!--        <activity android:name=".ui.menu.MenuActivity" />-->
-        <activity android:name=".ui.ranking.RankingListActivity" />
+        <activity android:name=".ui.ranking.RankingActivity" />
         <activity android:name=".ui.main.MainActivity" />
         <activity
             android:name=".ui.landingpage.LandingPageActivity"

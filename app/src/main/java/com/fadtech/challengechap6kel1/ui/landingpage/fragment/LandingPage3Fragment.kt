@@ -2,12 +2,11 @@ package com.fadtech.challengechap6kel1.ui.landingpage.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.fadtech.challengechap6kel1.databinding.ActivityLandingPageBinding
+import androidx.fragment.app.Fragment
 import com.fadtech.challengechap6kel1.databinding.FragmentLandingPage3Binding
 import com.fadtech.challengechap6kel1.preference.UserPreference
 import com.fadtech.challengechap6kel1.ui.menu.MenuActivity

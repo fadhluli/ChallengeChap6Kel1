@@ -7,5 +7,6 @@ interface BaseContract {
 
     interface BaseView {
         fun initView()
+        fun initViewModel()
     }
 }

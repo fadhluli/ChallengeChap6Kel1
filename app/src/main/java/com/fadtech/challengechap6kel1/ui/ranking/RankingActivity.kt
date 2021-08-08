@@ -1,21 +1,25 @@
 package com.fadtech.challengechap6kel1.ui.ranking
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fadtech.challengechap6kel1.R
+import com.fadtech.challengechap6kel1.base.GenericViewModelFactory
+import com.fadtech.challengechap6kel1.base.Resource
 import com.fadtech.challengechap6kel1.data.local.room.UserRoomDatabase
 import com.fadtech.challengechap6kel1.data.local.room.datasource.UserDataSource
 import com.fadtech.challengechap6kel1.data.model.User
 import com.fadtech.challengechap6kel1.databinding.ActivityRankingBinding
+import com.fadtech.challengechap6kel1.ui.main.MainRepository
+import com.fadtech.challengechap6kel1.ui.main.MainViewModel
 
-class RankingListActivity : AppCompatActivity(), RankingListContract.View {
+class RankingActivity : AppCompatActivity(), RankingContract.View {
 
     private lateinit var binding: ActivityRankingBinding
     private lateinit var rankingAdapter: RankingAdapter
-    private lateinit var presenter: RankingListContract.Presenter
+    private lateinit var viewModel: RankingViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,14 +30,14 @@ class RankingListActivity : AppCompatActivity(), RankingListContract.View {
         supportActionBar?.hide()
     }
 
-    private fun onCloseClick(){
+    private fun onCloseClick() {
         binding.ivClose.setOnClickListener {
             finish()
         }
     }
 
     override fun getData() {
-        presenter.getUserRankingList()
+        viewModel.getUserRankingList()
     }
 
     override fun onResume() {
@@ -60,7 +64,7 @@ class RankingListActivity : AppCompatActivity(), RankingListContract.View {
     }
 
     override fun setEmptyStateVisibility(isDataEmpty: Boolean) {
-        binding.tvMessage.text = "No Data"
+        binding.tvMessage.text = getString(R.string.text_no_data_message)
         binding.tvMessage.visibility = if (isDataEmpty) View.VISIBLE else View.GONE
     }
 
@@ -73,9 +77,40 @@ class RankingListActivity : AppCompatActivity(), RankingListContract.View {
     }
 
     override fun initView() {
-        val dataSource = UserDataSource(UserRoomDatabase.getInstance(this).userDao())
-        presenter = RankingListPresenter(dataSource, this)
+        initViewModel()
         initList()
+    }
+
+    override fun initViewModel() {
+        val dataSource = UserDataSource(UserRoomDatabase.getInstance(this).userDao())
+        val repository = RankingRepository(dataSource)
+        viewModel =
+            GenericViewModelFactory(RankingViewModel(repository)).create(RankingViewModel::class.java)
+
+        viewModel.rankingData.observe(this, {
+            when (it) {
+                is Resource.Loading -> {
+                    setLoadingStatus(true)
+                    setEmptyStateVisibility(false)
+                }
+                is Resource.Success -> {
+                    setLoadingStatus(false)
+                    it.data?.let { data ->
+                        if (data.isNullOrEmpty()) {
+                            onDataEmpty()
+                            setEmptyStateVisibility(true)
+                        } else {
+                            onDataSuccess(data)
+                        }
+                    }
+                }
+                is Resource.Error -> {
+                    setLoadingStatus(false)
+                    setEmptyStateVisibility(false)
+                    onDataFailed(it.message.orEmpty())
+                }
+            }
+        })
     }
 
 }
