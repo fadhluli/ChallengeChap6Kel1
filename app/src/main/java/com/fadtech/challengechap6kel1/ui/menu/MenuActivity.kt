@@ -1,5 +1,4 @@
 package com.fadtech.challengechap6kel1.ui.menu
-
 import android.content.Context
 import android.content.Intent
 import android.media.AudioAttributes
@@ -7,7 +6,6 @@ import android.media.AudioManager
 import android.media.SoundPool
 import android.os.Build
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.fadtech.challengechap6kel1.R
@@ -15,7 +13,7 @@ import com.fadtech.challengechap6kel1.data.constant.Constant
 import com.fadtech.challengechap6kel1.databinding.ActivityMenuBinding
 import com.fadtech.challengechap6kel1.preference.UserPreference
 import com.fadtech.challengechap6kel1.ui.dialog.DialogHowtoplayFragment
-import com.fadtech.challengechap6kel1.ui.dialog.DialogSettingFragment
+import com.fadtech.challengechap6kel1.ui.history.HistoryActivity
 import com.fadtech.challengechap6kel1.ui.main.MainActivity
 import com.fadtech.challengechap6kel1.ui.ranking.RankingActivity
 import com.google.android.material.snackbar.Snackbar
@@ -35,24 +33,21 @@ class MenuActivity : AppCompatActivity() {
 
     //Sound ID is id created by SoundPool
     // And Sound ID needed to play the sound
-    private var soundId = 1
+    private var soundId = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_menu)
-        supportActionBar!!.hide()
         binding = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
         setTextMenuWelcome()
         showWelcomeMessage()
         setClickListenersPlayerPlayer()
         versionSetUpSound()
-        soundEffectListener()
+//        soundEffectListener()
 
     }
-
-
 
     private fun setTextMenuWelcome() {
         binding.tvTitleNamePlayerOne.text = String.format(
@@ -81,44 +76,35 @@ class MenuActivity : AppCompatActivity() {
             startActivity(intent)
             setupSoundEffect()
         }
-
+//
         binding.btnImgVsPlayer.setOnClickListener {
             startActivity(Intent(this, InputNamePlayerTwoActivity::class.java))
-
+            setupSoundEffect()
         }
 
-        binding.btnImgHowtoplay.setOnClickListener{
+        binding.btnImgHowToPlay.setOnClickListener {
             //Dialog Setting Dialog Click Listener
             DialogHowtoplayFragment().show(supportFragmentManager, null)
             setupSoundEffect()
         }
+
+        binding.btnImgHistory.setOnClickListener {
+            startActivity(Intent(this, HistoryActivity::class.java))
+            setupSoundEffect()
+        }
+
+        //        binding.ivSettingMenu.setOnClickListener {
+//            setupSoundEffect()
+//        }
+
+        binding.btnImgRanking.setOnClickListener {
+            startActivity(Intent(this, RankingActivity::class.java))
+            setupSoundEffect()
+        }
     }
 
-    private fun soundEffectListener(){
 
-        binding.ivSettingMenu.setOnClickListener {
-            setupSoundEffect()
-        }
-
-        binding.btnImgVsPlayer.setOnClickListener {
-            setupSoundEffect()
-        }
-
-        binding.btnImgMenuRank.setOnClickListener {
-            setupSoundEffect()
-        }
-
-        binding.btnImgMenuHistory.setOnClickListener {
-            setupSoundEffect()
-        }
-
-        binding.btnImgHowtoplay.setOnClickListener {
-
-        }
-
-    }
-
-    private fun versionSetUpSound(){
+    private fun versionSetUpSound() {
         // For Android SDK >= 21
         if (Build.VERSION.SDK_INT >= 21) {
             val audioAttrib = AudioAttributes.Builder()
@@ -132,16 +118,15 @@ class MenuActivity : AppCompatActivity() {
             // SoundPool(int maxStreams, int streamType, int srcQuality)
             this.soundPool = SoundPool(MAX_STREAMS, AudioManager.STREAM_MUSIC, 0)
         }
-    }
-
-
-    private fun setupSoundEffect(){
-
         this.soundPool.setOnLoadCompleteListener { soundPool, i, i2 ->
             loaded = true
         }
 
         this.soundId = this.soundPool.load(this, R.raw.sound_effect_click_button_japan, 1)
+
+    }
+
+    private fun setupSoundEffect() {
 
         //Get Sound Settings From System
         val mgr = getSystemService(Context.AUDIO_SERVICE) as AudioManager
@@ -149,12 +134,11 @@ class MenuActivity : AppCompatActivity() {
         val maxVolume = mgr.getStreamMaxVolume(AudioManager.STREAM_MUSIC).toFloat()
         val volume = actualVolume / maxVolume
 
-        if(loaded){
+        if (loaded) {
             val streamId = this.soundPool.play(this.soundId, volume, volume, 1, 0, 1f)
-        }else{
+        } else {
             Toast.makeText(this, "Soundpool Not Loaded", Toast.LENGTH_LONG).show()
         }
     }
-
 
 }

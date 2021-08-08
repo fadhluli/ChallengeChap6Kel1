@@ -1,133 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_img_menu"
-    android:padding="@dimen/_6sdp"
     tools:context=".ui.menu.MenuActivity">
 
-    <ImageView
-        android:id="@+id/iv_setting_menu"
-        android:layout_width="@dimen/_40sdp"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:src="@drawable/icon_setting_activity_gameplay"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/iv_logo_header_menu"
-        android:layout_width="@dimen/_120sdp"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:src="@drawable/logo_menu"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@+id/iv_setting_menu"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_title_name_player_one"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:fontFamily="@font/electroharmonix_font"
-        android:gravity="center"
-        android:textColor="@color/electroharmonix_font_color"
-        android:textSize="@dimen/_20ssp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_logo_header_menu"
-        tools:text="Hi Player 1" />
-
-    <TextView
-        android:id="@+id/tv_subtitle_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_font"
-        android:gravity="center"
-        android:text="Choose Your Gameplay"
-        android:textColor="@color/roboto_font_color"
-        android:textSize="@dimen/_16ssp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title_name_player_one" />
-
-    <LinearLayout
-        android:id="@+id/ll_btn_option_gameplay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_subtitle_name">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_img_menu"
+        android:padding="@dimen/_14sdp">
 
         <ImageView
-            android:id="@+id/btn_img_vs_player"
-            android:layout_width="@dimen/_120sdp"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:src="@drawable/btn_img_ilustration_vs_palyer_menu_activity"
+            android:id="@+id/iv_logo_header_menu"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_160sdp"
+            android:src="@drawable/logo_menu"
+            app:layout_constraintBottom_toTopOf="@+id/tv_title_name_player_one"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/btn_img_vs_com" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/btn_img_vs_com"
-            android:layout_width="@dimen/_120sdp"
+        <TextView
+            android:id="@+id/tv_title_name_player_one"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:src="@drawable/btn_img_ilustration_vs_com_menu_activity"
-            app:layout_constraintLeft_toRightOf="@+id/btn_img_vs_player"
-            app:layout_constraintRight_toRightOf="parent" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_btn_option_rank_and_history"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_btn_option_gameplay">
-
-        <ImageView
-            android:id="@+id/btn_img_menu_rank"
-            android:layout_width="@dimen/_120sdp"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:src="@drawable/btn_img_menu_rank_player"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:fontFamily="@font/electroharmonix_font"
+            android:gravity="center"
+            android:textColor="@color/electroharmonix_font_color"
+            android:textSize="@dimen/_26ssp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_subtitle_name"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/btn_img_vs_com" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_logo_header_menu"
+            tools:text="Hi Player 1" />
+
+        <TextView
+            android:id="@+id/tv_subtitle_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:fontFamily="@font/roboto_font"
+            android:gravity="center"
+            android:text="Choose Your Gameplay"
+            android:textColor="@color/roboto_font_color"
+            android:textSize="@dimen/_18ssp"
+            app:layout_constraintBottom_toTopOf="@+id/ll_btn_option_gameplay"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_name_player_one" />
+
+        <LinearLayout
+            android:id="@+id/ll_btn_option_gameplay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/ll_btn_option_gameplay2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_subtitle_name">
+
+            <ImageView
+                android:id="@+id/btn_img_vs_player"
+                android:layout_width="@dimen/_130sdp"
+                android:layout_height="@dimen/_130sdp"
+                android:src="@drawable/btn_img_ilustration_vs_palyer_menu_activity"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/btn_img_vs_com" />
+
+            <ImageView
+                android:id="@+id/btn_img_vs_com"
+                android:layout_width="@dimen/_130sdp"
+                android:layout_height="@dimen/_130sdp"
+                android:src="@drawable/btn_img_ilustration_vs_com_menu_activity"
+                app:layout_constraintLeft_toRightOf="@+id/btn_img_vs_player"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_btn_option_gameplay2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/btn_img_how_to_play"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_btn_option_gameplay">
+
+            <ImageView
+                android:id="@+id/btn_img_ranking"
+                android:layout_width="@dimen/_130sdp"
+                android:layout_height="@dimen/_130sdp"
+                android:src="@drawable/btn_img_menu_rank_player"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/btn_img_history" />
+
+            <ImageView
+                android:id="@+id/btn_img_history"
+                android:layout_width="@dimen/_130sdp"
+                android:layout_height="@dimen/_130sdp"
+                android:src="@drawable/btn_img_menu_story_game"
+                app:layout_constraintLeft_toRightOf="@+id/btn_img_history"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </LinearLayout>
 
         <ImageView
-            android:id="@+id/btn_img_menu_history"
-            android:layout_width="@dimen/_120sdp"
+            android:id="@+id/btn_img_how_to_play"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:src="@drawable/btn_img_menu_game_history"
-            app:layout_constraintLeft_toRightOf="@+id/btn_img_vs_player"
-            app:layout_constraintRight_toRightOf="parent" />
+            android:src="@drawable/btn_img_menu_howtoplay"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_btn_option_gameplay2" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <ImageView
-        android:id="@+id/btn_img_howtoplay"
-        android:layout_width="@dimen/_240sdp"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:src="@drawable/btn_img_menu_howtoplay"
-        app:layout_constraintTop_toBottomOf="@+id/ll_btn_option_rank_and_history"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-
-        />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

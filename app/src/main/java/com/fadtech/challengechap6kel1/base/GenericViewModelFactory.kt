@@ -12,4 +12,5 @@ class GenericViewModelFactory(private val viewModel: ViewModel) : ViewModelProvi
         }
         throw IllegalArgumentException("Unknown Class Name")
     }
+
 }

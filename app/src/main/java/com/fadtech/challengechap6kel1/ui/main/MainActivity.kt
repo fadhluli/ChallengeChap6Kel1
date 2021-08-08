@@ -17,14 +17,20 @@ import com.fadtech.challengechap6kel1.data.constant.Constant
 import com.fadtech.challengechap6kel1.data.local.room.UserRoomDatabase
 import com.fadtech.challengechap6kel1.data.local.room.datasource.UserDataSource
 import com.fadtech.challengechap6kel1.data.model.User
+import com.fadtech.challengechap6kel1.data.network.datasource.HistoryDataSource
+import com.fadtech.challengechap6kel1.data.network.entity.requests.HistoryRequest
+import com.fadtech.challengechap6kel1.data.network.services.HistoryApiServices
 import com.fadtech.challengechap6kel1.databinding.ActivityMainBinding
 import com.fadtech.challengechap6kel1.databinding.ActivityMenuBinding
 import com.fadtech.challengechap6kel1.enum.GameMechanic
+import com.fadtech.challengechap6kel1.preference.SessionPreference
 import com.fadtech.challengechap6kel1.preference.UserPreference
 import com.fadtech.challengechap6kel1.ui.dialog.DialogFragmentListener
 import com.fadtech.challengechap6kel1.ui.dialog.DialogResultFragment
 import com.fadtech.challengechap6kel1.ui.dialog.DialogSettingFragment
 import com.fadtech.challengechap6kel1.ui.ranking.RankingActivity
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.View {
@@ -38,6 +44,8 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
     private val TAG = MainActivity::class.java.simpleName
     private lateinit var viewModel: MainViewModel
     private var user: User? = null
+    private var isInsertUserToDb = true
+    private lateinit var sessionPreference: SessionPreference
 
     //SoundPool
     // Maximumn sound stream.
@@ -51,7 +59,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
 
     //Sound ID is id created by SoundPool
     // And Sound ID needed to play the sound
-    private var soundId = 1
+    private var soundId = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,10 +68,9 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
         setContentView(binding.root)
         supportActionBar?.hide()
         initView()
+        versionSetUpSound()
         onResetClick()
         onSettingClick()
-        soundEffectListener()
-        versionSetUpSound()
     }
 
 
@@ -83,6 +90,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
 
     private fun onResetClick() {
         binding.ivReset.setOnClickListener {
+            setupSoundEffect()
             resetGame()
             isGameFinished = false
         }
@@ -90,6 +98,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
 
     private fun onSettingClick() {
         binding.ivSetting.setOnClickListener {
+            setupSoundEffect()
             //Dialog Setting Dialog Click Listener
             DialogSettingFragment().show(supportFragmentManager, null)
         }
@@ -99,6 +108,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
     private fun onPlayerOneClick() {
         var random: Int
         binding.flActionPlayerRock.setOnClickListener {
+            setupSoundEffect()
             if (!isGameFinished) {
                 player1 = 0
                 setSelectPlayer(0)
@@ -112,6 +122,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
             }
         }
         binding.flActionPlayerPapper.setOnClickListener {
+            setupSoundEffect()
             if (!isGameFinished) {
                 player1 = 1
                 setSelectPlayer(1)
@@ -125,6 +136,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
             }
         }
         binding.flActionPlayerScissor.setOnClickListener {
+            setupSoundEffect()
             if (!isGameFinished) {
                 player1 = 2
                 showToastFromPlayer1Choice(player1)
@@ -142,12 +154,14 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
     //ketika player2 klik
     private fun onPlayerTwoClick() {
         binding.flActionCpuRock.setOnClickListener {
+            setupSoundEffect()
             if (!isGameFinished) {
                 player2 = 0
                 gamePlay(player1, player2)
             }
         }
         binding.flActionCpuPapper.setOnClickListener {
+            setupSoundEffect()
             if (!isGameFinished) {
                 player2 = 1
                 gamePlay(player1, player2)
@@ -155,11 +169,11 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
 
         }
         binding.flActionCpuScissor.setOnClickListener {
+            setupSoundEffect()
             if (!isGameFinished) {
                 player2 = 2
                 gamePlay(player1, player2)
             }
-
         }
     }
 
@@ -182,16 +196,15 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
                 } else {
                     DialogResultFragment("COM WINNER").show(supportFragmentManager, null)
                 }
-
                 showPlayerOne()
-
+                insertHistoryToAPI("Opponent Win")
             } else if (playerOne == playerTwo) {
                 Log.d(TAG, "setClickEvent draw")
                 binding.ivImageVs.setImageResource(R.drawable.icon_draw)
                 //Dialog Result for Draw
                 DialogResultFragment("Draw").show(supportFragmentManager, null)
-
                 showPlayerOne()
+                insertHistoryToAPI("Draw")
 
             } else {
                 Log.d(TAG, "setClickEvent User won")
@@ -204,6 +217,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
                     null
                 )
                 showPlayerOne()
+                insertHistoryToAPI("Player Win")
             }
             isGameFinished = true
             setSelectPlayer(playerOne)
@@ -229,7 +243,6 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
             ).show()
         }
     }
-
 
     internal fun resetGame() {
         setSelectPlayer(-1)
@@ -369,32 +382,57 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
         }
     }
 
-    // insert user to database
-    private fun insertUserToDb() {
+    private fun insertHistoryToAPI(result: String) {
+        var mode: String?
         if (playMode == 0) {
-            if (totalWinplayer1 > 0) {
-                user = User(
-                    username = UserPreference(this).userNamePlayerOne.orEmpty(),
-                    totalWin = totalWinplayer1
-                )
-                user?.let { viewModel.insertUser(it) }
-            }
-            if (totalWinplayer2 > 0) {
-                user = User(
-                    username = UserPreference(this).userNamePlayerTwo.orEmpty(),
-                    totalWin = totalWinplayer2
-                )
-                user?.let { viewModel.insertUser(it) }
-            }
+            mode = "Multiplayer"
         } else {
-            if (totalWinplayer1 > 0) {
-                user = User(
-                    username = UserPreference(this).userNamePlayerOne.orEmpty(),
-                    totalWin = totalWinplayer1
-                )
-                user?.let { viewModel.insertUser(it) }
-            }
+            mode = "Singleplayer"
         }
+
+        viewModel.insertHistory(
+            HistoryRequest(
+                mode = mode,
+                result = result
+            )
+        )
+    }
+
+    // insert user to database
+    fun insertUserToDb() {
+        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        val currentDate = sdf.format(Date())
+        if (isInsertUserToDb) {
+            if (playMode == 0) {
+                if (totalWinplayer1 > 0) {
+                    user = User(
+                        username = UserPreference(this).userNamePlayerOne.orEmpty(),
+                        totalWin = totalWinplayer1,
+                        date = currentDate
+                    )
+                    user?.let { viewModel.insertUser(it) }
+                }
+                if (totalWinplayer2 > 0) {
+                    user = User(
+                        username = UserPreference(this).userNamePlayerTwo.orEmpty(),
+                        totalWin = totalWinplayer2,
+                        date = currentDate
+                    )
+                    user?.let { viewModel.insertUser(it) }
+                }
+            } else {
+                if (totalWinplayer1 > 0) {
+                    user = User(
+                        username = UserPreference(this).userNamePlayerOne.orEmpty(),
+                        totalWin = totalWinplayer1,
+                        date = currentDate
+                    )
+                    user?.let { viewModel.insertUser(it) }
+                }
+            }
+            isInsertUserToDb = false
+        }
+
     }
 
     fun navigateToRankingListActivity() {
@@ -415,12 +453,12 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
 
     override fun onSuccess() {
         //when save data success
-        Toast.makeText(this, "Save todo Success!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Good Game!", Toast.LENGTH_SHORT).show()
     }
 
     override fun onFailed() {
         //when save data failed
-        Toast.makeText(this, "Save todo Failed!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Save Failed!", Toast.LENGTH_SHORT).show()
     }
 
     override fun initView() {
@@ -429,10 +467,18 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
     }
 
     override fun initViewModel() {
-        val dataSource = UserDataSource(UserRoomDatabase.getInstance(this).userDao())
-        val repository = MainRepository(dataSource)
-        viewModel =
-            GenericViewModelFactory(MainViewModel(repository)).create(MainViewModel::class.java)
+        sessionPreference = SessionPreference(this)
+        val apiServices = HistoryApiServices.getInstance(sessionPreference)
+        val userDataSource = UserDataSource(UserRoomDatabase.getInstance(this).userDao())
+        apiServices?.let {
+            val historyDataSource = HistoryDataSource(it)
+            val repository = MainRepository(userDataSource, historyDataSource)
+            viewModel = GenericViewModelFactory(MainViewModel(repository))
+                .create(MainViewModel::class.java)
+        }
+//        val repository = MainRepository(dataSource)
+//        viewModel =
+//            GenericViewModelFactory(MainViewModel(repository)).create(MainViewModel::class.java)
 
         viewModel.transactionResult.observe(this, { isTransactionSuccess ->
             if (isTransactionSuccess) {
@@ -444,37 +490,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
 
     }
 
-    //SoundPool
-    private fun soundEffectListener(){
-
-        binding.ivSetting.setOnClickListener {
-            setupSoundEffect()
-        }
-        binding.flActionPlayerRock.setOnClickListener {
-            setupSoundEffect()
-        }
-        binding.flActionPlayerPapper.setOnClickListener {
-            setupSoundEffect()
-        }
-        binding.flActionPlayerScissor.setOnClickListener {
-            setupSoundEffect()
-        }
-        binding.flActionCpuRock.setOnClickListener {
-            setupSoundEffect()
-        }
-        binding.flActionCpuPapper.setOnClickListener {
-            setupSoundEffect()
-        }
-        binding.flActionCpuScissor.setOnClickListener {
-            setupSoundEffect()
-        }
-        binding.ivReset.setOnClickListener {
-            setupSoundEffect()
-        }
-
-    }
-
-    private fun versionSetUpSound(){
+    private fun versionSetUpSound() {
         // For Android SDK >= 21
         if (Build.VERSION.SDK_INT >= 21) {
             val audioAttrib = AudioAttributes.Builder()
@@ -488,10 +504,6 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
             // SoundPool(int maxStreams, int streamType, int srcQuality)
             this.soundPool = SoundPool(MAX_STREAMS, AudioManager.STREAM_MUSIC, 0)
         }
-    }
-
-
-    private fun setupSoundEffect(){
 
         this.soundPool.setOnLoadCompleteListener { soundPool, i, i2 ->
             loaded = true
@@ -499,15 +511,19 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
 
         this.soundId = this.soundPool.load(this, R.raw.sound_effect_click_button_japan, 1)
 
+    }
+
+
+    private fun setupSoundEffect() {
         //Get Sound Settings From System
         val mgr = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         val actualVolume = mgr.getStreamVolume(AudioManager.STREAM_MUSIC).toFloat()
         val maxVolume = mgr.getStreamMaxVolume(AudioManager.STREAM_MUSIC).toFloat()
         val volume = actualVolume / maxVolume
 
-        if(loaded){
+        if (loaded) {
             val streamId = this.soundPool.play(this.soundId, volume, volume, 1, 0, 1f)
-        }else{
+        } else {
             Toast.makeText(this, "Soundpool Not Loaded", Toast.LENGTH_LONG).show()
         }
     }
