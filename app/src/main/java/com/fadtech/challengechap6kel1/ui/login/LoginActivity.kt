@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.fadtech.challengechap6kel1.utils.StringUtils
 import com.fadtech.challengechap6kel1.R
 import com.fadtech.challengechap6kel1.base.GenericViewModelFactory
 import com.fadtech.challengechap6kel1.base.Resource
@@ -16,6 +15,7 @@ import com.fadtech.challengechap6kel1.preference.SessionPreference
 import com.fadtech.challengechap6kel1.preference.UserPreference
 import com.fadtech.challengechap6kel1.ui.menu.MenuActivity
 import com.fadtech.challengechap6kel1.ui.register.RegisterActivity
+import com.fadtech.challengechap6kel1.utils.StringUtils
 
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {

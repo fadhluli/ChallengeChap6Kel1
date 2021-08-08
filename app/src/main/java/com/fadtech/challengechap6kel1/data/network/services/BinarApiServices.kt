@@ -1,10 +1,10 @@
 package com.fadtech.challengechap6kel1.data.network.services
 
-import com.fadtech.challengechap6kel1.data.network.entity.responses.authentication.BaseAuthResponse
 import com.fadtech.challengechap6kel1.BuildConfig
-import com.fadtech.challengechap6kel1.data.network.entity.responses.authentication.LoginResponse
 import com.fadtech.challengechap6kel1.data.network.entity.requests.authentication.LoginRequest
 import com.fadtech.challengechap6kel1.data.network.entity.requests.authentication.RegisterRequest
+import com.fadtech.challengechap6kel1.data.network.entity.responses.authentication.BaseAuthResponse
+import com.fadtech.challengechap6kel1.data.network.entity.responses.authentication.LoginResponse
 import com.fadtech.challengechap6kel1.data.network.entity.responses.authentication.UserResponse
 import com.fadtech.challengechap6kel1.preference.SessionPreference
 import okhttp3.Interceptor

@@ -9,9 +9,7 @@ import com.fadtech.challengechap6kel1.databinding.ActivityLandingPageBinding
 import com.fadtech.challengechap6kel1.ui.landingpage.adapter.ViewPagerAdapter
 import com.fadtech.challengechap6kel1.ui.landingpage.fragment.LandingPage1Fragment
 import com.fadtech.challengechap6kel1.ui.landingpage.fragment.LandingPage2Fragment
-import com.fadtech.challengechap6kel1.ui.landingpage.fragment.LandingPage3Fragment
 import com.fadtech.challengechap6kel1.ui.login.LoginActivity
-import com.fadtech.challengechap6kel1.ui.menu.MenuActivity
 
 class LandingPageActivity : AppCompatActivity() {
 

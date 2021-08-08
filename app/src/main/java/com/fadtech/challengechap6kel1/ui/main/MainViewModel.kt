@@ -6,9 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.fadtech.challengechap6kel1.base.Resource
 import com.fadtech.challengechap6kel1.data.model.User
 import com.fadtech.challengechap6kel1.data.network.entity.requests.HistoryRequest
-import com.fadtech.challengechap6kel1.data.network.entity.responses.History.GetHistoryData
 import com.fadtech.challengechap6kel1.data.network.entity.responses.History.PostHistoryData
-import com.fadtech.challengechap6kel1.data.network.entity.responses.History.PostHistoryResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

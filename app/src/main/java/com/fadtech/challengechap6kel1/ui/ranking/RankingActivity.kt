@@ -12,8 +12,6 @@ import com.fadtech.challengechap6kel1.data.local.room.UserRoomDatabase
 import com.fadtech.challengechap6kel1.data.local.room.datasource.UserDataSource
 import com.fadtech.challengechap6kel1.data.model.User
 import com.fadtech.challengechap6kel1.databinding.ActivityRankingBinding
-import com.fadtech.challengechap6kel1.ui.main.MainRepository
-import com.fadtech.challengechap6kel1.ui.main.MainViewModel
 
 class RankingActivity : AppCompatActivity(), RankingContract.View {
 

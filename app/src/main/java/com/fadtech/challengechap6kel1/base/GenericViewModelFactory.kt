@@ -2,7 +2,6 @@ package com.fadtech.challengechap6kel1.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import java.lang.IllegalArgumentException
 
 class GenericViewModelFactory(private val viewModel: ViewModel) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")

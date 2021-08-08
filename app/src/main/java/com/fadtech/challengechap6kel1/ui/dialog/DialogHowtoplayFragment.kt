@@ -1,9 +1,6 @@
 package com.fadtech.challengechap6kel1.ui.dialog
 
-import android.app.Dialog
 import android.content.pm.ActivityInfo
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +10,6 @@ import androidx.fragment.app.DialogFragment
 import com.fadtech.challengechap6kel1.R
 import com.fadtech.challengechap6kel1.data.constant.Constant
 import com.fadtech.challengechap6kel1.databinding.FragmentDialogHowtoplayBinding
-import com.google.android.material.snackbar.Snackbar
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener

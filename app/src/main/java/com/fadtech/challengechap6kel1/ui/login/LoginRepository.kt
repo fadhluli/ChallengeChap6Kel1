@@ -1,9 +1,9 @@
 package com.fadtech.challengechap6kel1.ui.login
 
-import com.fadtech.challengechap6kel1.data.network.entity.responses.authentication.BaseAuthResponse
 import com.fadtech.challengechap6kel1.data.network.datasource.BinarDataSource
-import com.fadtech.challengechap6kel1.data.network.entity.responses.authentication.LoginResponse
 import com.fadtech.challengechap6kel1.data.network.entity.requests.authentication.LoginRequest
+import com.fadtech.challengechap6kel1.data.network.entity.responses.authentication.BaseAuthResponse
+import com.fadtech.challengechap6kel1.data.network.entity.responses.authentication.LoginResponse
 
 
 class LoginRepository(private val binarDataSource: BinarDataSource) {

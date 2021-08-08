@@ -21,7 +21,6 @@ import com.fadtech.challengechap6kel1.data.network.datasource.HistoryDataSource
 import com.fadtech.challengechap6kel1.data.network.entity.requests.HistoryRequest
 import com.fadtech.challengechap6kel1.data.network.services.HistoryApiServices
 import com.fadtech.challengechap6kel1.databinding.ActivityMainBinding
-import com.fadtech.challengechap6kel1.databinding.ActivityMenuBinding
 import com.fadtech.challengechap6kel1.enum.GameMechanic
 import com.fadtech.challengechap6kel1.preference.SessionPreference
 import com.fadtech.challengechap6kel1.preference.UserPreference

@@ -1,9 +1,9 @@
 package com.fadtech.challengechap6kel1.ui.history
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fadtech.challengechap6kel1.R
 import com.fadtech.challengechap6kel1.base.GenericViewModelFactory
@@ -13,7 +13,6 @@ import com.fadtech.challengechap6kel1.data.network.entity.responses.History.GetH
 import com.fadtech.challengechap6kel1.data.network.services.HistoryApiServices
 import com.fadtech.challengechap6kel1.databinding.ActivityHistoryBinding
 import com.fadtech.challengechap6kel1.preference.SessionPreference
-import com.fadtech.challengechap6kel1.preference.UserPreference
 
 class HistoryActivity : AppCompatActivity(), HistoryContract.View {
 
