@@ -226,10 +226,12 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
                 if (playMode != 0) {
                     showToastFromPlayer2Choice(getString(R.string.text_player_cpu), playerTwo)
                 } else {
-                    showToastFromPlayer2Choice(
-                        getString(R.string.text_player_player2),
-                        playerTwo
-                    )
+                    UserPreference(this).userNamePlayerTwo?.let {
+                        showToastFromPlayer2Choice(
+                            it,
+                            playerTwo
+                        )
+                    }
                 }
             }
         } else {
@@ -293,7 +295,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
                 this,
                 String.format(
                     getString(R.string.text_toast_choice),
-                    UserPreference(this).userNamePlayerTwo,
+                    player,
                     getString(R.string.text_shape_rock)
                 ), Toast.LENGTH_SHORT
             ).show()
@@ -302,7 +304,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
                 this,
                 String.format(
                     getString(R.string.text_toast_choice),
-                    UserPreference(this).userNamePlayerTwo,
+                    player,
                     getString(R.string.text_shape_paper)
                 ), Toast.LENGTH_SHORT
             ).show()
@@ -311,7 +313,7 @@ class MainActivity : AppCompatActivity(), DialogFragmentListener, MainContract.V
                 this,
                 String.format(
                     getString(R.string.text_toast_choice),
-                    UserPreference(this).userNamePlayerTwo,
+                    player,
                     getString(R.string.text_shape_scissor)
                 ), Toast.LENGTH_SHORT
             ).show()

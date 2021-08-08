@@ -8,7 +8,6 @@
     <string name="text_shape_scissor">Scissor</string>
     <string name="text_name_enemy_player">Player 2</string>
     <string name="text_name_enemy_comp">Computer</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="text_winner_playerone">Winner :</string>
     <string name="text_toast_choose_attention">%s Turn First</string>
 
