@@ -1,4 +1,5 @@
 package com.fadtech.challengechap6kel1.ui.menu
+
 import android.content.Context
 import android.content.Intent
 import android.media.AudioAttributes
@@ -11,8 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.fadtech.challengechap6kel1.R
 import com.fadtech.challengechap6kel1.data.constant.Constant
 import com.fadtech.challengechap6kel1.databinding.ActivityMenuBinding
+import com.fadtech.challengechap6kel1.preference.SessionPreference
 import com.fadtech.challengechap6kel1.preference.UserPreference
 import com.fadtech.challengechap6kel1.ui.dialog.DialogHowtoplayFragment
+import com.fadtech.challengechap6kel1.ui.dialog.DialogSettingMenuFragment
 import com.fadtech.challengechap6kel1.ui.history.HistoryActivity
 import com.fadtech.challengechap6kel1.ui.main.MainActivity
 import com.fadtech.challengechap6kel1.ui.ranking.RankingActivity
@@ -93,16 +96,24 @@ class MenuActivity : AppCompatActivity() {
             setupSoundEffect()
         }
 
-        //        binding.ivSettingMenu.setOnClickListener {
-//            setupSoundEffect()
-//        }
-
         binding.btnImgRanking.setOnClickListener {
             startActivity(Intent(this, RankingActivity::class.java))
             setupSoundEffect()
         }
+        binding.ivSettingMenu.setOnClickListener {
+            navigateToSetting()
+            setupSoundEffect()
+        }
     }
 
+    private fun navigateToSetting() {
+        DialogSettingMenuFragment().show(supportFragmentManager, null)
+    }
+
+    fun deleteSession() {
+        SessionPreference(this).deleteSession()
+
+    }
 
     private fun versionSetUpSound() {
         // For Android SDK >= 21

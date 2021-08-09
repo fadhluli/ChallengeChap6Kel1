@@ -3,12 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ChallengeChap6Kel1/app/src/main/res/drawable-v24/bg_rounded_setting.xml" value="0.19583333333333333" />
         <entry key="..\:/ChallengeChap6Kel1/app/src/main/res/layout/activity_input_name_player_two.xml" value="0.1796875" />
         <entry key="..\:/ChallengeChap6Kel1/app/src/main/res/layout/activity_login.xml" value="0.1" />
-        <entry key="..\:/ChallengeChap6Kel1/app/src/main/res/layout/activity_menu.xml" value="0.1574074074074074" />
+        <entry key="..\:/ChallengeChap6Kel1/app/src/main/res/layout/activity_menu.xml" value="0.22" />
+        <entry key="..\:/ChallengeChap6Kel1/app/src/main/res/layout/activity_profile.xml" value="0.1796875" />
         <entry key="..\:/ChallengeChap6Kel1/app/src/main/res/layout/activity_ranking.xml" value="0.1574074074074074" />
         <entry key="..\:/ChallengeChap6Kel1/app/src/main/res/layout/activity_register.xml" value="0.1" />
         <entry key="..\:/ChallengeChap6Kel1/app/src/main/res/layout/fragment_dialog_result.xml" value="0.1796875" />
+        <entry key="..\:/ChallengeChap6Kel1/app/src/main/res/layout/fragment_dialog_seeting_menu.xml" value="0.1" />
+        <entry key="..\:/ChallengeChap6Kel1/app/src/main/res/layout/fragment_dialog_setting.xml" value="0.16666666666666666" />
         <entry key="..\:/ChallengeChap6Kel1/app/src/main/res/layout/fragment_landing_page3.xml" value="0.1796875" />
       </map>
     </option>
