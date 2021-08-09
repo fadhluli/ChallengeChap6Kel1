@@ -1,6 +1,11 @@
 package com.fadtech.challengechap6kel1.ui.login
+
 import android.content.Intent
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +35,24 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         supportActionBar?.hide()
         setContentView(binding.root)
         initView()
+
+    }
+
+    fun initSpanText() {
+        val spannable = SpannableString("Do you haven't account ? Register")
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                navigateToRegister()
+            }
+        }
+        spannable.setSpan(
+            clickableSpan,
+            25,
+            33,
+            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+        )
+        binding.tvRegister.text = spannable
+        binding.tvRegister.movementMethod = LinkMovementMethod.getInstance()
     }
 
     override fun setToolbar() {
@@ -48,9 +71,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
             }
         }
-        binding.llRegister.setOnClickListener {
-            navigateToRegister()
-        }
+        initSpanText()
     }
 
     override fun navigateToHome() {
@@ -134,13 +155,15 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
                 }
                 is Resource.Error -> {
                     setLoadingState(false)
-                    Toast.makeText(this,"Your email and password wrong, please check again", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,
+                        "Your email and password wrong, please check again",
+                        Toast.LENGTH_SHORT).show()
                 }
             }
         })
     }
 
-    override fun saveSessionLogin(authToken : String) {
+    override fun saveSessionLogin(authToken: String) {
         sessionPreference.authToken = authToken
     }
 

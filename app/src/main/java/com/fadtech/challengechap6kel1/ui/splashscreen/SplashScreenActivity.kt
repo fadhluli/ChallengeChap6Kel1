@@ -21,7 +21,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SplashScreenActivity : AppCompatActivity(), SplashScreenContract.View {
-    private var timer: CountDownTimer? = null
     private val TAG = SplashScreenActivity::class.java.simpleName
     private lateinit var viewModel: SplashScreenViewModel
     private lateinit var sessionPreference: SessionPreference
@@ -29,28 +28,13 @@ class SplashScreenActivity : AppCompatActivity(), SplashScreenContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
         supportActionBar?.hide()
-        setEventSplash()
         initView()
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (timer != null) {
-            timer?.cancel()
-            timer = null
-        }
-    }
-
+    
     private fun setEventSplash() {
-        timer = object : CountDownTimer(3000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {}
-            override fun onFinish() {
-                val intent = Intent(this@SplashScreenActivity, LandingPageActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-            }
-        }
-        timer?.start()
+        val intent = Intent(this@SplashScreenActivity, LandingPageActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
     override fun navigateToLogin() {

@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/bg_register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_register"
     android:padding="@dimen/_16sdp"
     tools:context=".ui.register.RegisterActivity">
 
@@ -49,10 +49,9 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/text_hint_email"
-        app:hintTextColor="@color/black"
-
         android:layout_marginTop="10dp"
+        app:hintEnabled="false"
+        app:hintTextColor="@color/black"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_register">
@@ -61,7 +60,8 @@
             android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background = "@color/white"
+            android:background="@color/white"
+            android:hint="@string/text_hint_email"
             android:inputType="textEmailAddress"
             android:maxLines="1" />
 
@@ -73,7 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="@string/text_hint_username"
+        app:hintEnabled="false"
         app:hintTextColor="@color/black"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -83,7 +83,8 @@
             android:id="@+id/et_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background = "@color/white"
+            android:background="@color/white"
+            android:hint="@string/text_hint_username"
             android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -94,7 +95,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="@string/text_hint_password"
+        app:hintEnabled="false"
         app:hintTextColor="@color/black"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -105,7 +106,8 @@
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background = "@color/white"
+            android:background="@color/white"
+            android:hint="@string/text_hint_password"
             android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -114,12 +116,12 @@
         android:id="@+id/pb_loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        tools:visibility="visible"
         android:layout_marginTop="@dimen/_16sdp"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_password" />
+        app:layout_constraintTop_toBottomOf="@+id/til_password"
+        tools:visibility="visible" />
 
     <ImageButton
         android:id="@+id/btn_register"
